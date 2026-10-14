@@ -129,3 +129,51 @@
       .then(function () { button.disabled = false; });
   });
 })();
+
+(function () {
+  /* Load sequence, section reveal and the pitch-to-renewal track. Translate and opacity only. */
+  var root = document.documentElement;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  requestAnimationFrame(function () { requestAnimationFrame(function () { root.classList.remove('pep-load'); }); });
+
+  var stops = [].slice.call(document.querySelectorAll('#stops .stop'));
+  var puck = document.getElementById('puck');
+  var timers = [];
+  function place(i) {
+    if (!puck) return;
+    var line = puck.parentNode.getBoundingClientRect();
+    puck.style.transform = 'translateX(' + (stops[i].getBoundingClientRect().left - line.left - 2) + 'px)';
+  }
+  function runTrack() {
+    if (!stops.length) return;
+    timers.forEach(clearTimeout); timers = [];
+    stops.forEach(function (s) { s.classList.remove('on'); });
+    if (puck) { puck.style.transition = 'none'; place(0); puck.offsetWidth; puck.style.transition = ''; }
+    stops[0].classList.add('on');
+    if (reduce) { stops.forEach(function (s) { s.classList.add('on'); }); place(stops.length - 1); return; }
+    stops.forEach(function (s, i) {
+      if (i) timers.push(setTimeout(function () { place(i); s.classList.add('on'); }, 200 + i * 360));
+    });
+  }
+  window.addEventListener('resize', function () {
+    var on = stops.filter(function (s) { return s.classList.contains('on'); }).length;
+    if (on) place(on - 1);
+  });
+
+  var targets = [].slice.call(document.querySelectorAll('main > .section, main > .ticker'));
+  var track = document.getElementById('track');
+  if (reduce || !('IntersectionObserver' in window)) { runTrack(); return; }
+  targets.forEach(function (el) {
+    if (el.getBoundingClientRect().top > window.innerHeight * 0.85) el.classList.add('pre');
+  });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.remove('pre');
+      if (e.target === track) runTrack();
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.15 });
+  targets.forEach(function (t) { io.observe(t); });
+  if (track && !track.classList.contains('pre')) setTimeout(runTrack, 300);
+})();

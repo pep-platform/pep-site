@@ -5,21 +5,37 @@ path: /
 slug: index
 ---
 <section class="wrap hero">
-  <h1 class="display-xl">Stop guessing. Start proving.</h1>
+  <h1 class="display-xl"><span class="line"><span>Stop guessing.</span></span> <span class="line"><span>Start proving.</span></span></h1>
   <p class="lede">{{brand}} is an AI-based sponsorship strategy and evaluation platform: consultancy-grade thinking from pitch to renewal, designed and built by Rory Natkiel and Simon Spyer.</p>
   <div class="actions">
     <a class="btn btn-primary" href="early-access.html">Request a demo</a>
     <a class="btn btn-outline" href="product.html">See how it works</a>
   </div>
 </section>
+<span class="wordmark giant" aria-hidden="true">{{brand}}</span>
 <!--/masthead-->
 
-<section class="section">
+<section class="section" id="track">
   <div class="wrap">
     <h2>One platform for the whole partnership</h2>
     <div class="prose">
-      <p class="lede">{{brand}} takes a partnership from its first objective to its renewal case. The Strategy Module sets what the deal is for and builds the plan to deliver it. The Measurement Module tracks performance against that plan and builds the evidence for what happens next.</p>
+      <p>{{brand}} takes a partnership from its first objective to its renewal case. The Strategy Module sets what the deal is for and builds the plan to deliver it. The Measurement Module tracks performance against that plan and builds the evidence for what happens next.</p>
       <p>Whether you're a brand renewing a flagship deal or a rights holder pitching a new title partner, {{brand}} gives you the plan and the data to make it pay off.</p>
+    </div>
+    <div class="track" aria-label="The partnership lifecycle {{brand}} covers">
+      <div class="brackets" aria-hidden="true">
+        <span class="bracket strat label">Strategy Module</span>
+        <span class="bracket meas label">Measurement Module</span>
+      </div>
+      <div class="line"><span class="puck" id="puck"></span></div>
+      <ol class="stops" id="stops">
+        <li class="stop"><span class="label">Pitch</span><p>What the property can do for a brand</p><span class="mod">Strategy Module</span></li>
+        <li class="stop"><span class="label">Objectives</span><p>What the deal is for, agreed before signing</p><span class="mod">Strategy Module</span></li>
+        <li class="stop"><span class="label">Plan</span><p>Rights, budgets, channels and KPIs</p><span class="mod">Strategy Module</span></li>
+        <li class="stop"><span class="label">Deal</span><p>Data sources set for the metrics that count</p><span class="mod">Strategy Module</span></li>
+        <li class="stop"><span class="label">Season</span><p>Performance tracked live against the plan</p><span class="mod">Measurement Module</span></li>
+        <li class="stop"><span class="label">Renewal</span><p>A case both sides can check</p><span class="mod">Measurement Module</span></li>
+      </ol>
     </div>
   </div>
 </section>
@@ -35,23 +51,65 @@ slug: index
   </div>
 </section>
 
-<section class="section">
+<section class="section fill">
   <div class="wrap">
     <h2>Effectiveness at every stage</h2>
     <div class="modules">
       <div class="module">
         <h3>Strategy Module</h3>
         <p>Built on Box Count's strategy method, the Strategy Module covers effectiveness-led objectives, KPI frameworks and partner fit, through to activation budgets, channel plans and creative briefs rooted in evidence. Work that takes a consultancy weeks arrives in days.</p>
+        <div class="mini" aria-label="Sample Strategy Module output">
+          <div class="mini-chrome"><span class="label">Strategy Module</span><span class="mini-chip">Sample data</span></div>
+          <div class="mini-surface">
+            <span class="deal">Acme Shaving × Harbour City FC</span>
+            <div class="rows">
+              <div class="row"><span class="label">Business</span><span>Grow share among UK men aged 35 to 54</span></div>
+              <div class="row"><span class="label">Brand</span><span>More men name Acme as the razor brand they would choose</span></div>
+              <div class="row"><span class="label">Behaviour</span><span>More word-of-mouth advocacy for Acme</span></div>
+              <div class="row"><span class="label">Sales</span><span>More men who bought Acme in the last 12 months</span></div>
+            </div>
+          </div>
+        </div>
         <a class="more" href="product.html#strategy">See its screens on a sample deal</a>
       </div>
       <div class="module">
         <h3>Measurement Module</h3>
         <p>Built on Data Agents' measurement frameworks, the Measurement Module brings every data source together to track performance against the objectives the strategy set, generate insights, model scenarios and build the renewal case. You can ask the data questions in plain English and see exactly how every number was produced.</p>
+        <div class="mini" aria-label="Sample Measurement Module output">
+          <div class="mini-chrome"><span class="label">Measurement Module</span><span class="mini-chip">Sample data</span></div>
+          <div class="mini-surface">
+            <span class="deal">Acme Shaving × Harbour City FC</span>
+            <div class="metric">
+              <span class="label">Tracked brand KPIs, exposed vs control</span>
+              <span class="value">+4.2pts</span>
+              <span class="vs">Baseline to six-month wave</span>
+            </div>
+            <div class="chart">
+              <svg viewBox="0 0 320 140" role="img" aria-label="Brand uplift rising from 0.3 to 4.2 points over six months, against a flat control line">
+                <polyline fill="none" stroke="#E4E4E4" stroke-width="2" points="8,104 66,103 124,105 182,102 240,104 302,103"/>
+                <polyline fill="none" stroke="#FF6B00" stroke-width="3" points="8,100 66,88 124,74 182,58 240,44 302,30"/>
+                <line x1="8" y1="120" x2="312" y2="120" stroke="#0B0B0B" stroke-width="2"/>
+                <text x="302" y="20" text-anchor="end" font-family="Archivo, sans-serif" font-size="11" font-weight="600" fill="#0B0B0B">Exposed</text>
+                <text x="302" y="96" text-anchor="end" font-family="Archivo, sans-serif" font-size="11" fill="#6E6E6E">Control</text>
+                <text x="8" y="136" font-family="Archivo, sans-serif" font-size="11" fill="#6E6E6E">Baseline</text>
+                <text x="312" y="136" text-anchor="end" font-family="Archivo, sans-serif" font-size="11" fill="#6E6E6E">Month 6</text>
+              </svg>
+              <span class="mask"></span>
+            </div>
+          </div>
+        </div>
         <a class="more" href="product.html#measurement">See its screens on a sample deal</a>
       </div>
     </div>
   </div>
 </section>
+
+<div class="ink ticker" aria-label="Sport, arts, music, festivals and events">
+  <div class="run" aria-hidden="true">
+    <ul><li>Sport</li><li>Arts</li><li>Music</li><li>Festivals</li><li>Events</li></ul>
+    <ul><li>Sport</li><li>Arts</li><li>Music</li><li>Festivals</li><li>Events</li></ul>
+  </div>
+</div>
 
 <section class="section">
   <div class="wrap">
