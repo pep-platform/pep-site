@@ -25,6 +25,7 @@ Mirrors boxcount.co (rory-lab/boxcount-site) and reuses its build script.
 - `src/static/` is copied as-is (styles.css, site.js).
 - Internal links keep `.html` so they work inside the artifact; the home link is `./`. Clean URLs can come later, with hosting.
 - Archivo (variable, with the wdth axis) loads from Google Fonts. SVGs are inline. The site is self-contained so previews render.
+- Product page screens (`.pf` frames, styles in styles.css, tabs and scenario logic in site.js) are rebuilt from the beta app on a fictional sample deal: Acme Shaving × Harbour City FC. Never name real properties (no NFL). The scenario channel-to-objective mapping is an approximation, not the product's logic.
 - Forms can't submit from a preview. The early-access form is built properly with `data-endpoint=""`; put a Formspree URL there when Rory picks one. Until then a submit shows a preview notice.
 
 ## Pages
