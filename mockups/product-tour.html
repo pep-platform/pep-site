@@ -1,0 +1,429 @@
+<title>pep Product Tour</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap">
+<style>
+/* Layout: a product-page section. Heading and copy stacked, then one product frame (ink chrome with the
+   module tabs, white work surface) holding five rebuilt screens from the beta app, sample data throughout.
+   Orange is kept to one number per screen; status uses the identity's semantic colours, as product mock-ups may. */
+:root {
+  --pep-accent: #FF6B00; --pep-accent-hover: #FF8533; --pep-accent-active: #D95A00; --pep-selected: #FFF0E5;
+  --pep-ink: #0B0B0B; --pep-surface: #FFFFFF; --pep-elevated: #141414; --pep-border-dark: #2A2A2A;
+  --pep-secondary: #6E6E6E; --pep-disabled: #9E9E9E; --pep-rule: #E4E4E4; --pep-fill: #F4F4F4;
+  --pos: #0A7C5A; --neg: #C51A1A; --warn: #8A6A00;
+  --font: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --ease: cubic-bezier(.2,0,0,1);
+  --gutter: 16px; --focus: var(--pep-ink);
+  color-scheme: light;
+}
+@media (min-width: 720px) { :root { --gutter: 32px; } }
+@media (min-width: 1100px) { :root { --gutter: 48px; } }
+*, *::before, *::after { box-sizing: border-box; border-radius: 0; }
+body { margin: 0; background: var(--pep-surface); color: var(--pep-ink); font: 400 16px/24px var(--font); font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
+p { margin: 0; text-wrap: pretty; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.wrap { max-width: 1200px; margin-inline: auto; padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
+.label { font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.muted { color: var(--pep-secondary); }
+
+/* Section */
+.section { padding-block: 64px; }
+.intro { display: grid; gap: 24px; position: relative; padding-top: 48px; }
+.intro::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--pep-accent); }
+.intro h2 { font-size: 40px; line-height: 44px; font-weight: 800; font-stretch: 118%; letter-spacing: -0.035em; }
+.intro .body { display: grid; gap: 16px; font-size: 18px; line-height: 28px; max-width: 34em; }
+@media (min-width: 720px) { .section { padding-block: 96px; } .intro h2 { font-size: 64px; line-height: 60px; } }
+
+/* Product frame */
+.frame { margin-top: 48px; border: 1px solid var(--pep-ink); background: var(--pep-surface); }
+.chrome { background: var(--pep-ink); color: var(--pep-surface); --focus: var(--pep-accent); }
+.chrome-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 16px; border-bottom: 1px solid var(--pep-border-dark); flex-wrap: wrap; }
+.chrome-top .wm { font-size: 28px; font-weight: 900; font-stretch: 125%; letter-spacing: -0.045em; color: var(--pep-accent); line-height: 1; padding-bottom: 4px; }
+.chrome-top .deal { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.chrome-top .deal span:last-child { font-weight: 600; }
+.chip-dark { border: 1px solid var(--pep-disabled); color: var(--pep-disabled); padding: 4px 8px; font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+.tabs { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
+.tabgroup { display: flex; align-items: stretch; border-right: 1px solid var(--pep-border-dark); }
+.tabgroup:last-child { border-right: 0; }
+.tabgroup .group { display: flex; align-items: center; padding: 0 16px; color: var(--pep-secondary); white-space: nowrap; }
+.tab { height: 48px; padding: 0 16px; background: transparent; border: 0; border-bottom: 3px solid transparent; color: var(--pep-disabled); font: 600 13px/16px var(--font); letter-spacing: .12em; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: color 120ms var(--ease), border-color 120ms var(--ease); }
+.tab:hover { color: var(--pep-surface); }
+.tab[aria-selected="true"] { color: var(--pep-surface); border-bottom-color: var(--pep-accent); }
+
+.screen { padding: 24px 16px; display: grid; gap: 24px; min-height: 560px; align-content: start; }
+@media (min-width: 720px) { .screen { padding: 32px; } }
+.screen[hidden] { display: none; }
+.screen.enter > * { animation: enter 200ms var(--ease) both; }
+.screen.enter > *:nth-child(2) { animation-delay: 40ms; } .screen.enter > *:nth-child(3) { animation-delay: 80ms; } .screen.enter > *:nth-child(4) { animation-delay: 120ms; }
+@keyframes enter { from { opacity: 0; transform: translateY(8px); } }
+.callout { background: var(--pep-fill); border-left: 3px solid var(--pep-accent); padding: 16px 24px; font-size: 18px; line-height: 28px; }
+.sub { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.scroll { overflow-x: auto; }
+
+/* Status chips: square and bordered */
+.chip { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border: 1px solid currentColor; font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+.chip.pos { color: var(--pos); }
+.chip.pos.solid { background: var(--pos); border-color: var(--pos); color: var(--pep-surface); }
+.chip.idle { color: var(--pep-secondary); border-color: var(--pep-rule); }
+
+/* 1. Objective framework */
+.ofw { min-width: 760px; display: grid; gap: 4px; }
+.ofw .band { background: var(--pep-ink); color: var(--pep-surface); padding: 12px 16px; }
+.ofw .band.input { background: var(--pep-elevated); color: var(--pep-disabled); }
+.ofw .cells { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+.ofw .cell { border: 1px solid var(--pep-rule); padding: 12px 16px; min-height: 72px; display: grid; align-content: center; gap: 4px; color: var(--pep-secondary); font-weight: 600; font-stretch: 112%; }
+.ofw .cell small { font-weight: 400; font-stretch: 100%; font-size: 14px; line-height: 20px; font-style: italic; color: var(--pep-disabled); }
+.ofw .cell.biz { background: var(--pep-ink); color: var(--pep-surface); border-color: var(--pep-ink); }
+.ofw .cell.sup { background: var(--pep-selected); color: var(--pep-ink); border-color: var(--pep-accent); box-shadow: none; border-top-width: 3px; }
+.ofw .cell.biz span, .ofw .cell.sup span { font-weight: 400; font-stretch: 100%; font-size: 14px; line-height: 20px; }
+.ofw .cell.trk { background: var(--pep-elevated); color: var(--pep-surface); border-color: var(--pep-elevated); text-align: center; }
+.ofw .cell.trk span { font-weight: 400; font-stretch: 100%; font-size: 14px; line-height: 20px; color: var(--pep-disabled); }
+.ofw .cell.off { background: var(--pep-fill); color: var(--pep-disabled); text-align: center; font-weight: 400; }
+.ofw .span2 { grid-column: span 2; } .ofw .span3 { grid-column: span 3; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; color: var(--pep-secondary); }
+.legend i { display: inline-block; width: 12px; height: 12px; margin-right: 8px; vertical-align: -1px; }
+.legend .count { margin-left: auto; font-weight: 700; color: var(--pep-ink); }
+
+/* 2. Budget */
+.cards3 { display: grid; gap: 16px; }
+@media (min-width: 900px) { .cards3 { grid-template-columns: repeat(3, 1fr); } }
+.bcard { border: 1px solid var(--pep-rule); border-left: 3px solid var(--pep-ink); padding: 24px; display: grid; gap: 12px; align-content: start; }
+.bcard .fig { font-size: 40px; line-height: 44px; font-weight: 800; font-stretch: 118%; letter-spacing: -0.035em; }
+.bcard .fig.hero { color: var(--pep-accent); }
+.bcard p { color: var(--pep-secondary); }
+
+/* 3. Performance */
+.kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; }
+@media (min-width: 900px) { .kpis { grid-template-columns: repeat(6, 1fr); } }
+.kpi { border: 1px solid var(--pep-rule); border-top: 2px solid var(--pep-ink); padding: 16px; display: grid; gap: 4px; }
+.kpi .v { font-size: 28px; line-height: 32px; font-weight: 800; font-stretch: 118%; letter-spacing: -0.02em; }
+.kpi .v.hero { color: var(--pep-accent); }
+.kpi .d { color: var(--pep-secondary); font-size: 14px; line-height: 20px; }
+.kpi .label { color: var(--pep-secondary); }
+.objs { display: grid; gap: 16px; }
+@media (min-width: 900px) { .objs { grid-template-columns: repeat(3, 1fr); } }
+.ocard { border: 1px solid var(--pep-rule); padding: 24px; display: grid; gap: 12px; align-content: start; }
+.ocard .head { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.ocard h3 { font-size: 20px; line-height: 26px; font-weight: 700; letter-spacing: -0.01em; }
+.ocard .src { border-top: 1px solid var(--pep-rule); padding-top: 12px; color: var(--pep-secondary); }
+.ocard .states { display: flex; flex-wrap: wrap; gap: 4px; }
+
+/* 4. Insights */
+.icard { border: 1px solid var(--pep-rule); border-left: 3px solid var(--pos); padding: 24px; display: grid; gap: 16px; align-content: start; }
+.icard .head { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+.icard h3 { font-size: 20px; line-height: 26px; font-weight: 700; letter-spacing: -0.01em; }
+.icard .next { background: var(--pep-fill); padding: 16px; display: grid; gap: 8px; }
+.icard .ev { color: var(--pep-secondary); font-size: 14px; line-height: 20px; }
+
+/* 5. Scenarios */
+.scen { display: grid; gap: 24px; }
+@media (min-width: 900px) { .scen { grid-template-columns: 5fr 7fr; gap: 32px; align-items: start; } }
+.panel { border: 1px solid var(--pep-rule); padding: 24px; display: grid; gap: 16px; }
+.panel .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.btn-s { height: 32px; padding: 0 12px; border: 2px solid var(--pep-ink); background: var(--pep-surface); color: var(--pep-ink); font: 600 13px/1 var(--font); letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: background-color 120ms var(--ease), color 120ms var(--ease); }
+.btn-s:hover { background: var(--pep-ink); color: var(--pep-surface); }
+.ch { display: grid; gap: 8px; }
+.ch .row { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.ch .name { font-weight: 600; }
+.ch .pct { font-weight: 800; font-stretch: 118%; }
+.ch .was { color: var(--pep-disabled); font-weight: 400; font-stretch: 100%; }
+.ch input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 24px; background: transparent; margin: 0; cursor: pointer; --p: 20%; }
+.ch input[type=range]::-webkit-slider-runnable-track { height: 4px; background: linear-gradient(var(--pep-ink), var(--pep-ink)) 0 / var(--p) 100% no-repeat, var(--pep-rule); }
+.ch input[type=range]::-moz-range-track { height: 4px; background: var(--pep-rule); }
+.ch input[type=range]::-moz-range-progress { height: 4px; background: var(--pep-ink); }
+.ch input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; margin-top: -6px; background: var(--pep-ink); border: 0; }
+.ch input[type=range]::-moz-range-thumb { width: 16px; height: 16px; background: var(--pep-ink); border: 0; border-radius: 0; }
+.ch.changed input[type=range]::-webkit-slider-thumb { background: var(--pep-accent); }
+.ch.changed input[type=range]::-moz-range-thumb { background: var(--pep-accent); }
+.moves { display: grid; }
+.move { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; min-height: 56px; padding-block: 12px; border-top: 1px solid var(--pep-rule); }
+.move:last-child { border-bottom: 1px solid var(--pep-rule); }
+.move .st { font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: color 120ms var(--ease); }
+.move .st.up { color: var(--pos); } .move .st.down { color: var(--neg); } .move .st.flat { color: var(--pep-secondary); }
+.move .st.flash { animation: flash 200ms var(--ease); }
+@keyframes flash { from { opacity: 0; transform: translateX(8px); } }
+.note-box { background: var(--pep-fill); border-left: 3px solid var(--pep-ink); padding: 16px 24px; color: var(--pep-ink); }
+
+.sample { color: var(--pep-secondary); font-size: 14px; line-height: 20px; }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+
+<section class="section">
+  <div class="wrap">
+    <div class="intro">
+      <h2>One sample deal, pitch to renewal</h2>
+      <div class="body">
+        <p>These are pep's own screens, run on a sample deal between two fictional names: a grooming brand and a football club. Pick a tab to see the plan the Strategy Module builds and how the Measurement Module tracks it.</p>
+      </div>
+    </div>
+
+    <div class="frame">
+      <div class="chrome">
+        <div class="chrome-top">
+          <div class="deal"><span class="wm" aria-hidden="true">pep</span><span>Acme Shaving × Harbour City FC</span></div>
+          <span class="chip-dark">Sample data</span>
+        </div>
+        <div class="tabs" role="tablist" aria-label="pep screens">
+          <div class="tabgroup">
+            <span class="group label">Strategy</span>
+            <button class="tab" role="tab" id="t-obj" aria-controls="s-obj" aria-selected="true">Objectives</button>
+            <button class="tab" role="tab" id="t-bud" aria-controls="s-bud" aria-selected="false">Budget</button>
+          </div>
+          <div class="tabgroup">
+            <span class="group label">Measurement</span>
+            <button class="tab" role="tab" id="t-perf" aria-controls="s-perf" aria-selected="false">Performance</button>
+            <button class="tab" role="tab" id="t-ins" aria-controls="s-ins" aria-selected="false">Insights</button>
+            <button class="tab" role="tab" id="t-scen" aria-controls="s-scen" aria-selected="false">Scenarios</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1. Objectives -->
+      <div class="screen" id="s-obj" role="tabpanel" aria-labelledby="t-obj">
+        <p class="callout">Five objectives, laddered from one business goal. Everything else is tracked as an input, not claimed as an outcome.</p>
+        <div class="scroll">
+          <div class="ofw">
+            <div class="band label">Business objectives</div>
+            <div class="cells">
+              <div class="cell span2">Revenue</div>
+              <div class="cell span2">Profit</div>
+              <div class="cell biz span2">Market share<span>Grow share of Acme Shaving among UK men aged 35 to 54</span></div>
+            </div>
+            <div class="band label">Brand objectives</div>
+            <div class="cells">
+              <div class="cell">Awareness<small>I've heard of it</small></div>
+              <div class="cell">Consideration<small>I might buy it</small></div>
+              <div class="cell">Preference<small>I'd choose it</small></div>
+              <div class="cell">Perception<small>I think it is [x]</small></div>
+              <div class="cell">Affinity<small>I like it</small></div>
+              <div class="cell sup">Trust<span>Increase percentage who agree Acme Shaving is a brand they trust</span></div>
+            </div>
+            <div class="band label">Behavioural objectives</div>
+            <div class="cells">
+              <div class="cell">Price sensitivity</div>
+              <div class="cell">Footfall</div>
+              <div class="cell sup">Advocacy<span>Increase word-of-mouth advocacy for Acme Shaving</span></div>
+              <div class="cell">Web visits</div>
+              <div class="cell">Downloads</div>
+              <div class="cell">Participation</div>
+            </div>
+            <div class="band label">Sales objectives</div>
+            <div class="cells">
+              <div class="cell sup">Penetration<span>Increase percentage who have bought Acme Shaving within the previous 12 months</span></div>
+              <div class="cell">Category growth<small>Total buyers</small></div>
+              <div class="cell">Average order value</div>
+              <div class="cell">Basket size</div>
+              <div class="cell">Frequency</div>
+              <div class="cell">Loyalty</div>
+            </div>
+            <div class="band label">Communications model</div>
+            <div class="cells">
+              <div class="cell">Emotional involvement</div>
+              <div class="cell sup">Fame<span>Make Acme Shaving highly visible and talked about, to drive perceived authority</span></div>
+              <div class="cell">Information</div>
+              <div class="cell">Persuasion</div>
+              <div class="cell">Reinforcement</div>
+              <div class="cell">Differentiation</div>
+            </div>
+            <div class="band input label">Media inputs</div>
+            <div class="cells">
+              <div class="cell trk">Reach<span>Adult men 18 to 54 reached</span></div>
+              <div class="cell trk">Impressions<span>Brand exposures across the season</span></div>
+              <div class="cell trk">Frequency<span>Average exposures per person reached</span></div>
+              <div class="cell off">TVRs</div>
+              <div class="cell trk">SOV<span>Share of voice in grooming</span></div>
+              <div class="cell off">Coverage</div>
+            </div>
+          </div>
+        </div>
+        <div class="legend">
+          <span><i style="background:var(--pep-ink)"></i>Business objective</span>
+          <span><i style="background:var(--pep-selected);border:1px solid var(--pep-accent)"></i>Supporting objective</span>
+          <span><i style="background:var(--pep-elevated)"></i>Tracked input, not an objective</span>
+          <span class="count">5 objectives</span>
+        </div>
+      </div>
+
+      <!-- 2. Budget -->
+      <div class="screen" id="s-bud" role="tabpanel" aria-labelledby="t-bud" hidden>
+        <p class="callout">Acme Shaving should plan for a total investment of £8.5m to £12m per season, with activation set at 2 to 3 times the rights fee to turn the club's reach into measurable penetration and share gains among men 35 to 54.</p>
+        <div class="cards3">
+          <div class="bcard"><span class="label muted">Rights fee</span><span class="fig">£2.5m to £4m</span><p>Category-exclusive grooming rights. No incumbent grooming partner, so first-mover pricing is available. Per Binet and Davis (IPA, 2026), rights without activation weight behind them do not move commercial metrics.</p></div>
+          <div class="bcard"><span class="label muted">Activation budget</span><span class="fig">£6m to £8m</span><p>Set at 2 to 3 times the rights fee to buy the reach and frequency needed to shift mental availability among men 35 to 54. Fame campaigns need enough weight to earn media and visibility at scale.</p></div>
+          <div class="bcard" style="border-left-color:var(--pep-accent)"><span class="label muted">Total investment</span><span class="fig hero">£8.5m to £12m</span><p>All-in season one: rights, creative and media, measurement and the launch platform. Year one builds the baseline; years two and three compound penetration and share.</p></div>
+        </div>
+        <div class="cards3">
+          <div class="bcard"><span class="label muted">Activation : rights</span><span class="fig">2 to 3x</span><p>The rights fee buys access; activation generates the repeated exposure that shifts mental availability.</p></div>
+          <div class="bcard"><span class="label muted">Rights / activation split</span><span class="fig">30 / 70</span><p>In a Fame-led model the creative and media spend does the commercial work. The club is the context; activation is the engine.</p></div>
+          <div class="bcard"><span class="label muted">Measurement</span><span class="fig">~5% of total</span><p>Funded from the outset, not retrospectively, per SEF best practice: brand tracking, a matched-market incrementality design and a sales baseline.</p></div>
+        </div>
+      </div>
+
+      <!-- 3. Performance -->
+      <div class="screen" id="s-perf" role="tabpanel" aria-labelledby="t-perf" hidden>
+        <div class="kpis">
+          <div class="kpi"><span class="label">Exposure</span><span class="v">236M</span><span class="d">Total impressions</span></div>
+          <div class="kpi"><span class="label">Brand</span><span class="v">+4.2pts</span><span class="d">Tracked KPIs vs control</span></div>
+          <div class="kpi"><span class="label">Behaviour</span><span class="v">+19%</span><span class="d">Visits and footfall</span></div>
+          <div class="kpi"><span class="label">Sales</span><span class="v">£29.0m</span><span class="d">Direct + attributed</span></div>
+          <div class="kpi"><span class="label">Profit</span><span class="v">£17.4m</span><span class="d">Realised + modelled</span></div>
+          <div class="kpi" style="border-top-color:var(--pep-accent)"><span class="label">ROI</span><span class="v hero">1.26:1</span><span class="d">Profit ÷ total cost</span></div>
+        </div>
+        <div class="sub"><span class="label">Baseline to six-month wave</span></div>
+        <div class="objs">
+          <div class="ocard">
+            <div class="head"><h3>Category market share</h3><span class="chip pos">On track</span></div>
+            <p>Acme Shaving volume and value share among UK men 35 to 54, against the pre-deal baseline.</p>
+            <p class="src">Retail panel data</p>
+            <div class="states"><span class="chip idle">Ahead</span><span class="chip pos solid">On track</span><span class="chip idle">Watch</span><span class="chip idle">Off track</span></div>
+          </div>
+          <div class="ocard">
+            <div class="head"><h3>Brand trust</h3><span class="chip pos">On track</span></div>
+            <p>UK men 35 to 54 agreeing Acme Shaving is a brand they trust, exposed versus unexposed to the partnership.</p>
+            <p class="src">Brand tracker, exposed vs unexposed waves</p>
+            <div class="states"><span class="chip idle">Ahead</span><span class="chip pos solid">On track</span><span class="chip idle">Watch</span><span class="chip idle">Off track</span></div>
+          </div>
+          <div class="ocard">
+            <div class="head"><h3>Spontaneous salience</h3><span class="chip pos">On track</span></div>
+            <p>Unprompted recall and top-of-mind mention in grooming among UK men 35 to 54.</p>
+            <p class="src">Brand tracker, six-monthly waves</p>
+            <div class="states"><span class="chip idle">Ahead</span><span class="chip pos solid">On track</span><span class="chip idle">Watch</span><span class="chip idle">Off track</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Insights -->
+      <div class="screen" id="s-ins" role="tabpanel" aria-labelledby="t-ins" hidden>
+        <div class="objs">
+          <div class="icard">
+            <div class="head"><h3>Word-of-mouth advocacy</h3><span class="chip pos solid">Ahead</span></div>
+            <p><strong>Likely cause:</strong> football fan culture carries strong peer recommendation. Acme Shaving's presence across broadcast and digital is reaching men who already talk about the game, turning exposure into recommendation among the 35 to 54 target.</p>
+            <div class="next"><span class="label">Do next</span><p>Capture and redistribute organic advocacy content through the club's own channels to carry recommendation into the off-season.</p></div>
+            <p class="ev">Evidence: SEF</p>
+          </div>
+          <div class="icard">
+            <div class="head"><h3>Buyer penetration</h3><span class="chip pos">On track</span></div>
+            <p><strong>Likely cause:</strong> the twelve-month purchase rate among UK men 35 to 54 is moving against baseline, consistent with an early phase where brand effects come before sales effects.</p>
+            <div class="next"><span class="label">Do next</span><p>Run an exposed-versus-unexposed purchase comparison at the next read to confirm partnership contact, not seasonal category demand, is driving the shift.</p></div>
+            <p class="ev">Evidence: SEF</p>
+          </div>
+          <div class="icard">
+            <div class="head"><h3>Qualified audience reached</h3><span class="chip pos">On track</span></div>
+            <p><strong>Likely cause:</strong> verified impressions to UK men 35 to 54 are landing as planned. Reach is an input, not an effect, so this confirms the media plan is running, not that it is working.</p>
+            <div class="next"><span class="label">Do next</span><p>Check reach is spread across enough fixtures to build frequency. If it is bunched in one or two matches, redistribute across the season.</p></div>
+            <p class="ev">Evidence: SEF</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Scenarios -->
+      <div class="screen" id="s-scen" role="tabpanel" aria-labelledby="t-scen" hidden>
+        <div class="scen">
+          <div class="panel">
+            <div class="top"><span class="label">Channel weights</span><button class="btn-s" type="button" id="reset">Reset</button></div>
+            <span class="muted" id="alloc">Allocated 100%</span>
+            <div id="channels"></div>
+          </div>
+          <div class="panel">
+            <span class="label">Projected movement</span>
+            <div class="moves" id="moves"></div>
+            <p class="note-box">Direction of travel only. A channel shift moves the objectives its channels serve; it does not produce a number, because the elasticity behind that number would be invented.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="sample" style="margin-top:16px">Sample data. Acme Shaving and Harbour City FC are fictional.</p>
+  </div>
+</section>
+
+<script>
+(function () {
+  /* Tabs */
+  var tabs = [].slice.call(document.querySelectorAll('.tab'));
+  function select(tab) {
+    tabs.forEach(function (t) {
+      var on = t === tab, panel = document.getElementById(t.getAttribute('aria-controls'));
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      panel.hidden = !on;
+      if (on) { t.scrollIntoView({ block: 'nearest', inline: 'nearest' }); panel.classList.remove('enter'); panel.offsetWidth; panel.classList.add('enter'); }
+    });
+  }
+  tabs.forEach(function (t, i) {
+    t.tabIndex = t.getAttribute('aria-selected') === 'true' ? 0 : -1;
+    t.addEventListener('click', function () { select(t); });
+    t.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      var n = tabs[(i + d + tabs.length) % tabs.length]; n.focus(); select(n);
+    });
+  });
+
+  /* Scenarios: weights always total 100; moving one rebalances the rest in proportion.
+     Each objective's direction comes from the net change in the channels that serve it. */
+  var OBJ = [
+    ['share', 'Grow share of Acme Shaving among UK men aged 35 to 54'],
+    ['trust', 'Increase percentage who agree Acme Shaving is a brand they trust'],
+    ['advocacy', 'Increase word-of-mouth advocacy for Acme Shaving'],
+    ['pen', 'Increase percentage who have bought Acme Shaving within previous 12 months'],
+    ['fame', 'Fame: make Acme Shaving highly visible and talked about, to drive perceived authority']
+  ];
+  var CH = [
+    { name: 'Social', base: 22, serves: ['share', 'fame'] },
+    { name: 'Linear TV', base: 25, serves: ['share', 'trust', 'advocacy', 'pen', 'fame'] },
+    { name: 'Broadcaster VOD (BVoD)', base: 13, serves: ['share', 'pen'] },
+    { name: 'Events and experiential', base: 15, serves: ['advocacy'] },
+    { name: 'PR', base: 8, serves: ['fame', 'trust'] },
+    { name: 'Athlete and influencer', base: 10, serves: ['advocacy', 'fame'] },
+    { name: 'Outdoor', base: 7, serves: ['fame', 'pen'] }
+  ];
+  var START = [22, 30, 13, 10, 8, 10, 7]; /* the sample opens mid-scenario: TV up 5, events down 5 */
+  var w = START.slice();
+  var box = document.getElementById('channels'), movesBox = document.getElementById('moves');
+  var last = {};
+
+  CH.forEach(function (c, i) {
+    var d = document.createElement('div'); d.className = 'ch';
+    d.innerHTML = '<div class="row"><label class="name" for="ch' + i + '">' + c.name + '</label><span><span class="pct"></span> <span class="was"></span></span></div>' +
+      '<input type="range" id="ch' + i + '" min="0" max="60" step="1">';
+    box.appendChild(d);
+    d.querySelector('input').addEventListener('input', function (e) { setWeight(i, +e.target.value); });
+  });
+  OBJ.forEach(function (o) {
+    var r = document.createElement('div'); r.className = 'move';
+    r.innerHTML = '<span>' + o[1] + '</span><span class="st" id="st-' + o[0] + '"></span>';
+    movesBox.appendChild(r);
+  });
+
+  function setWeight(i, v) {
+    var others = 0; w.forEach(function (x, j) { if (j !== i) others += x; });
+    var rest = 100 - v;
+    w = w.map(function (x, j) { return j === i ? v : others ? x * rest / others : rest / (w.length - 1); });
+    render();
+  }
+  function render() {
+    var rounded = w.map(Math.round), diff = 100 - rounded.reduce(function (a, b) { return a + b; }, 0);
+    if (diff) { var k = rounded.indexOf(Math.max.apply(null, rounded)); rounded[k] += diff; }
+    [].slice.call(box.children).forEach(function (d, i) {
+      var v = rounded[i], b = CH[i].base, inp = d.querySelector('input');
+      inp.value = v; inp.style.setProperty('--p', (v / 60 * 100) + '%');
+      d.querySelector('.pct').textContent = v + '%';
+      d.querySelector('.was').textContent = v !== b ? '(was ' + b + '%)' : '';
+      d.classList.toggle('changed', v !== b);
+    });
+    OBJ.forEach(function (o) {
+      var net = 0; CH.forEach(function (c, i) { if (c.serves.indexOf(o[0]) > -1) net += w[i] - c.base; });
+      var st = net > 1.5 ? ['up', 'Improves'] : net < -1.5 ? ['down', 'Weakens'] : ['flat', 'No material change'];
+      var el = document.getElementById('st-' + o[0]);
+      if (last[o[0]] !== st[1]) { el.classList.remove('flash'); el.offsetWidth; el.classList.add('flash'); }
+      el.className = 'st ' + st[0] + (last[o[0]] !== st[1] && last[o[0]] ? ' flash' : '');
+      el.textContent = st[1]; last[o[0]] = st[1];
+    });
+  }
+  document.getElementById('reset').addEventListener('click', function () { w = CH.map(function (c) { return c.base; }); render(); });
+  render();
+})();
+</script>
