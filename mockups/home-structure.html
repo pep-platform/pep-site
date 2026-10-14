@@ -60,6 +60,14 @@
 .steps li:last-child { border-bottom: 1px solid var(--pep-rule); }
 .steps li::before { content: counter(s); font-weight: 800; font-stretch: 118%; font-size: 28px; }
 .answer-modules { margin-top: 24px; }
+/* Offset copy: headings run full width; running copy starts a third of the way in */
+@media (min-width: 960px) {
+  main .section > .wrap > .prose,
+  main .section > .wrap > .stat,
+  main .section > .wrap > .steps,
+  main .section > .wrap > .more { margin-left: calc(100% / 3 + 8px); max-width: 40em; }
+  main .section > .wrap > .more { justify-self: start; }
+}
 </style>
 <main id="main">
 
