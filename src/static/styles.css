@@ -482,7 +482,6 @@ main > .section:first-child > .wrap { overflow: hidden; }
 .track .stop::before { content: ""; position: absolute; top: -7px; left: 0; width: 12px; height: 12px; background: var(--pep-surface); border: 2px solid var(--pep-ink); border-radius: 50%; }
 .track .stop.on { color: var(--pep-ink); }
 .track .stop p { font-size: 16px; line-height: 24px; color: var(--pep-secondary); margin-top: 4px; max-width: 16ch; }
-.track .puck { position: absolute; top: -9px; left: 0; width: 16px; height: 16px; background: var(--pep-accent); transition: transform 200ms var(--ease); }
 .track .stop .mod { display: none; }
 @media (max-width: 959px) {
   .track .brackets, .track .line { display: none; }
