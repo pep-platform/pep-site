@@ -345,15 +345,15 @@ main > .section:first-child { padding-top: 64px; }
 @media (min-width: 900px) { .pf .cards3 { grid-template-columns: repeat(3, 1fr); } }
 .pf .bcard { border: 1px solid var(--pep-rule); border-left: 3px solid var(--pep-ink); padding: 24px; display: grid; gap: 12px; align-content: start; }
 .pf .bcard .fig { font-size: 40px; line-height: 44px; font-weight: 800; font-stretch: 118%; letter-spacing: -0.035em; }
-.pf .bcard .fig.hero { color: var(--pep-accent); }
+.pf .bcard .fig.key { color: var(--pep-accent); }
 .pf .bcard p { color: var(--pep-secondary); }
 
 /* 3. Performance */
 .pf .kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; }
 @media (min-width: 900px) { .pf .kpis { grid-template-columns: repeat(6, 1fr); } }
-.pf .kpi { border: 1px solid var(--pep-rule); border-top: 2px solid var(--pep-ink); padding: 16px; display: grid; gap: 4px; }
+.pf .kpi { align-content: start; border: 1px solid var(--pep-rule); border-top: 2px solid var(--pep-ink); padding: 16px; display: grid; gap: 4px; }
 .pf .kpi .v { font-size: 28px; line-height: 32px; font-weight: 800; font-stretch: 118%; letter-spacing: -0.02em; }
-.pf .kpi .v.hero { color: var(--pep-accent); }
+.pf .kpi .v.key { color: var(--pep-accent); }
 .pf .kpi .d { color: var(--pep-secondary); font-size: 14px; line-height: 20px; }
 .pf .kpi .label { color: var(--pep-secondary); }
 .pf .objs { display: grid; gap: 16px; }
