@@ -89,7 +89,7 @@ This replaces v1 completely. Never bring back v1's green, cream paper, Space Gro
   - The brand is confident and lightly playful; product outputs stay sober.
 - **Rory's standing rules override the identity doc:**
   - No eyebrows (small labels above headings), even though the identity uses uppercase labels that way. Uppercase labels are fine for form fields, table headers and metric labels, never above a heading.
-  - Bullets are hollow circles, never dashes. Make them ink by default; orange is rationed to one primary action and one number per view.
+  - Bullets are hollow orange circles, never dashes (Rory's choice, October 2026).
 
 ## Positioning and copy
 
