@@ -196,10 +196,10 @@ h1, h2, h3 { margin: 0; text-wrap: balance; }
             <div class="cells">
               <div class="cell">Awareness<small>I've heard of it</small></div>
               <div class="cell">Consideration<small>I might buy it</small></div>
-              <div class="cell">Preference<small>I'd choose it</small></div>
+              <div class="cell sup">Preference<span>Increase percentage who name Acme Shaving as the razor brand they would choose</span></div>
               <div class="cell">Perception<small>I think it is [x]</small></div>
               <div class="cell">Affinity<small>I like it</small></div>
-              <div class="cell sup">Trust<span>Increase percentage who agree Acme Shaving is a brand they trust</span></div>
+              <div class="cell">Trust<small>I trust it</small></div>
             </div>
             <div class="band label">Behavioural objectives</div>
             <div class="cells">
@@ -281,8 +281,8 @@ h1, h2, h3 { margin: 0; text-wrap: balance; }
             <div class="states"><span class="chip idle">Ahead</span><span class="chip pos solid">On track</span><span class="chip idle">Watch</span><span class="chip idle">Off track</span></div>
           </div>
           <div class="ocard">
-            <div class="head"><h3>Brand trust</h3><span class="chip pos">On track</span></div>
-            <p>UK men 35 to 54 agreeing Acme Shaving is a brand they trust, exposed versus unexposed to the partnership.</p>
+            <div class="head"><h3>Brand preference</h3><span class="chip pos">On track</span></div>
+            <p>UK men 35 to 54 naming Acme Shaving as the razor brand they would choose, exposed versus unexposed to the partnership.</p>
             <p class="src">Brand tracker, exposed vs unexposed waves</p>
             <div class="states"><span class="chip idle">Ahead</span><span class="chip pos solid">On track</span><span class="chip idle">Watch</span><span class="chip idle">Off track</span></div>
           </div>
@@ -366,17 +366,17 @@ h1, h2, h3 { margin: 0; text-wrap: balance; }
      Each objective's direction comes from the net change in the channels that serve it. */
   var OBJ = [
     ['share', 'Grow share of Acme Shaving among UK men aged 35 to 54'],
-    ['trust', 'Increase percentage who agree Acme Shaving is a brand they trust'],
+    ['pref', 'Increase percentage who name Acme Shaving as the razor brand they would choose'],
     ['advocacy', 'Increase word-of-mouth advocacy for Acme Shaving'],
     ['pen', 'Increase percentage who have bought Acme Shaving within previous 12 months'],
     ['fame', 'Fame: make Acme Shaving highly visible and talked about, to drive perceived authority']
   ];
   var CH = [
     { name: 'Social', base: 22, serves: ['share', 'fame'] },
-    { name: 'Linear TV', base: 25, serves: ['share', 'trust', 'advocacy', 'pen', 'fame'] },
+    { name: 'Linear TV', base: 25, serves: ['share', 'pref', 'advocacy', 'pen', 'fame'] },
     { name: 'Broadcaster VOD (BVoD)', base: 13, serves: ['share', 'pen'] },
     { name: 'Events and experiential', base: 15, serves: ['advocacy'] },
-    { name: 'PR', base: 8, serves: ['fame', 'trust'] },
+    { name: 'PR', base: 8, serves: ['fame', 'pref'] },
     { name: 'Athlete and influencer', base: 10, serves: ['advocacy', 'fame'] },
     { name: 'Outdoor', base: 7, serves: ['fame', 'pen'] }
   ];
