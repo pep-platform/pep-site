@@ -1,0 +1,459 @@
+<title>pep Home Redesign</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap">
+<style>
+/* Layout: ink cover with a cropped display word mark; white sections on a 12-column grid,
+   copy in columns 1-7 at one size, a product visual or diagram in 8-12; one fill band for the modules,
+   one ink ticker band for audiences. Motion: translate + opacity only, 120/200ms, cubic-bezier(.2,0,0,1). */
+:root {
+  --pep-accent: #FF6B00; --pep-accent-hover: #FF8533; --pep-accent-active: #D95A00;
+  --pep-ink: #0B0B0B; --pep-surface: #FFFFFF; --pep-elevated: #141414; --pep-border-dark: #2A2A2A;
+  --pep-secondary: #6E6E6E; --pep-disabled: #9E9E9E; --pep-rule: #E4E4E4; --pep-fill: #F4F4F4;
+  --font: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --ease: cubic-bezier(.2,0,0,1); --t-state: 120ms; --t-enter: 200ms;
+  --gutter: 16px; --section-y: 64px; --focus: var(--pep-ink);
+  color-scheme: light;
+}
+@media (min-width: 720px) { :root { --gutter: 32px; --section-y: 96px; } }
+@media (min-width: 1100px) { :root { --gutter: 48px; } }
+*, *::before, *::after { box-sizing: border-box; border-radius: 0; }
+body { margin: 0; background: var(--pep-surface); color: var(--pep-ink); font: 400 16px/24px var(--font); font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
+p { margin: 0; text-wrap: pretty; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.wrap { max-width: 1200px; margin-inline: auto; padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
+.label { font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+
+/* ---------- Header (unchanged) ---------- */
+.ink { background: var(--pep-ink); color: var(--pep-surface); --focus: var(--pep-accent); }
+.site-header { border-bottom: 1px solid var(--pep-border-dark); position: relative; z-index: 2; background: var(--pep-ink); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; }
+.brand { display: flex; align-self: stretch; text-decoration: none; }
+.wordmark { font-weight: 900; font-stretch: 125%; letter-spacing: -0.045em; color: var(--pep-accent); text-decoration: none; line-height: 1; }
+.brand .wordmark { display: flex; align-items: center; padding: 0 24px 6px 0; font-size: 36px; }
+.lockup { display: flex; align-items: center; width: min-content; padding-left: 24px; border-left: 1px solid var(--pep-border-dark); font-size: 13px; line-height: 16px; letter-spacing: .12em; text-transform: uppercase; color: var(--pep-disabled); }
+.site-nav { display: flex; align-items: center; gap: 32px; }
+.site-nav a:not(.btn) { text-decoration: none; transition: color var(--t-state) var(--ease); }
+.site-nav a:not(.btn):hover { color: var(--pep-accent-hover); }
+.nav-toggle { display: none; height: 40px; padding: 0 16px; background: transparent; color: var(--pep-surface); border: 2px solid var(--pep-surface); font: 700 16px/1 var(--font); }
+@media (max-width: 719px) {
+  .site-nav { display: none; } .nav-toggle { display: inline-flex; align-items: center; }
+  .brand .wordmark { padding-right: 16px; } .lockup { padding-left: 16px; }
+}
+
+/* ---------- Buttons ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 24px; font: 700 16px/1 var(--font); letter-spacing: -0.01em; text-decoration: none; white-space: nowrap; border: 2px solid transparent; cursor: pointer; transition: background-color var(--t-state) var(--ease), color var(--t-state) var(--ease), border-color var(--t-state) var(--ease); }
+.btn-caps { font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.btn-primary { background: var(--pep-accent); border-color: var(--pep-accent); color: var(--pep-ink); }
+.btn-primary:hover { background: var(--pep-accent-hover); border-color: var(--pep-accent-hover); }
+.btn-primary:active { background: var(--pep-accent-active); }
+.btn-outline { border-color: currentColor; color: inherit; background: transparent; }
+.ink .btn-outline:hover { background: var(--pep-surface); border-color: var(--pep-surface); color: var(--pep-ink); }
+
+/* ---------- 1. Hero: cropped display word mark + staggered line reveal ---------- */
+.hero-band { position: relative; overflow: hidden; }
+.hero { position: relative; z-index: 1; padding-block: 64px 0; display: grid; gap: 32px; }
+.hero h1 { font-size: 40px; line-height: 40px; font-weight: 900; font-stretch: 125%; letter-spacing: -0.045em; }
+.hero h1 .line { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
+.hero h1 .line > span { display: block; }
+.hero .lede { font-size: 18px; line-height: 28px; max-width: 34ch; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.giant {
+  display: block; text-align: right;
+  font-size: 46vw; line-height: .74; padding-top: 24px;
+  margin-right: calc(-0.06em - var(--gutter)); margin-bottom: -.2em;
+  pointer-events: none; user-select: none;
+}
+@media (min-width: 720px) {
+  .hero { padding-block: 96px 0; gap: 48px; }
+  .hero h1 { font-size: 64px; line-height: 60px; }
+  .hero .lede { max-width: 38ch; }
+  .giant { font-size: 300px; }
+}
+@media (min-width: 1100px) {
+  .hero { padding-block: 96px; }
+  .hero h1 { font-size: 96px; line-height: 88px; }
+  /* cropped right and bottom; clear of the copy column */
+  .giant { position: absolute; right: 0; bottom: 0; margin: 0 -0.22em -.2em 0; padding: 0; font-size: 360px; }
+}
+
+/* ---------- Sections on a 12-column grid ---------- */
+.section { padding-block: var(--section-y); }
+.section + .section { padding-top: 0; }
+.grid { display: grid; gap: 32px; position: relative; padding-top: var(--section-y); }
+.section:first-of-type .grid { padding-top: 48px; }
+.grid > * { min-width: 0; }
+.copy { display: grid; gap: 24px; align-content: start; }
+.copy h2 { font-size: 40px; line-height: 44px; font-weight: 800; font-stretch: 118%; letter-spacing: -0.035em; }
+.body { display: grid; gap: 16px; font-size: 18px; line-height: 28px; max-width: 34em; }
+.body .strong { font-weight: 700; }
+@media (min-width: 960px) {
+  .grid { grid-template-columns: repeat(12, 1fr); column-gap: 24px; row-gap: 48px; }
+  .copy { grid-column: 1 / -1; }
+  .copy .body { max-width: 34em; }
+  .aside { grid-column: 9 / span 4; align-self: start; }
+  .copy h2 { font-size: 64px; line-height: 60px; }
+  .wide { grid-column: 1 / -1; }
+}
+
+/* Rules: 3px orange opens the page's first section and slides in; 2px ink between the rest */
+.rule { position: absolute; top: 0; left: 0; right: 0; height: 2px; overflow: hidden; }
+.rule::before { content: ""; position: absolute; inset: 0; background: var(--pep-ink); }
+.rule.open { height: 3px; }
+.rule.open::before { background: var(--pep-accent); transition: transform 600ms var(--ease); }
+.pre .rule.open::before { transform: translateX(-101%); }
+
+/* ---------- 2. Pitch-to-renewal track ---------- */
+.track { --stops: 6; position: relative; padding-top: 48px; }
+.track .brackets { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; margin-bottom: 16px; }
+.track .bracket { border-top: 2px solid var(--pep-ink); padding-top: 8px; color: var(--pep-ink); }
+.track .bracket.strat { grid-column: 1 / span 4; margin-right: 12px; }
+.track .bracket.meas { grid-column: 5 / span 2; }
+.track .line { position: relative; height: 2px; background: var(--pep-rule); margin: 24px 0 0; }
+.track .stops { display: grid; grid-template-columns: repeat(6, 1fr); list-style: none; padding: 0; margin: 0; }
+.track .stop { position: relative; padding-top: 24px; color: var(--pep-secondary); transition: color var(--t-state) var(--ease); }
+.track .stop::before { content: ""; position: absolute; top: -7px; left: 0; width: 12px; height: 12px; background: var(--pep-surface); border: 2px solid var(--pep-ink); border-radius: 50%; }
+.track .stop.on { color: var(--pep-ink); }
+.track .puck { position: absolute; top: -9px; left: 0; width: 16px; height: 16px; background: var(--pep-accent); transition: transform 200ms var(--ease); will-change: transform; }
+.track .stop p { font-size: 16px; line-height: 24px; color: var(--pep-secondary); margin-top: 4px; max-width: 16ch; }
+@media (max-width: 959px) {
+  .track .brackets { display: none; }
+  .track .line { display: none; }
+  .track .stops { grid-template-columns: 1fr; border-left: 2px solid var(--pep-rule); margin-left: 6px; }
+  .track .stop { padding: 0 0 24px 32px; }
+  .track .stop::before { top: 2px; left: -9px; }
+  .track .stop:last-child { padding-bottom: 0; }
+  .track .puck { display: none; }
+  .track .stop .mod { display: block; margin-top: 4px; font-size: 13px; line-height: 16px; letter-spacing: .12em; text-transform: uppercase; color: var(--pep-ink); font-weight: 600; }
+}
+@media (min-width: 960px) { .track .stop .mod { display: none; } }
+
+/* ---------- 3. Modules band with product previews ---------- */
+.fill { background: var(--pep-fill); }
+.fill .grid { padding-top: var(--section-y); }
+.modules { display: grid; gap: 48px; }
+.module { display: grid; gap: 16px; align-content: start; }
+.module h3 { font-size: 28px; line-height: 32px; font-weight: 700; letter-spacing: -0.015em; }
+.module .body { font-size: 18px; line-height: 28px; }
+@media (min-width: 960px) { .modules { grid-template-columns: 1fr 1fr; gap: 48px; } }
+
+.screen { background: var(--pep-surface); border: 1px solid var(--pep-ink); margin-top: 8px; }
+.chrome { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: var(--pep-ink); color: var(--pep-surface); padding: 12px 16px; }
+.chrome .label { color: var(--pep-disabled); }
+.chip { border: 1px solid var(--pep-disabled); padding: 4px 8px; font-size: 13px; line-height: 16px; letter-spacing: .12em; text-transform: uppercase; color: var(--pep-disabled); white-space: nowrap; }
+.surface { padding: 24px 16px; display: grid; gap: 16px; }
+.deal { font-weight: 700; font-size: 16px; line-height: 24px; }
+.rows { display: grid; }
+.rows .row { display: grid; grid-template-columns: 112px 1fr; gap: 16px; align-items: center; min-height: 56px; padding-block: 12px; border-top: 1px solid var(--pep-rule); transition: opacity var(--t-enter) var(--ease), transform var(--t-enter) var(--ease); }
+.rows .row:last-child { border-bottom: 1px solid var(--pep-rule); }
+.rows .row .label { color: var(--pep-secondary); }
+.pre .rows .row { opacity: 0; transform: translateY(8px); }
+.metric { display: grid; gap: 4px; }
+.metric .value { font-size: 40px; line-height: 44px; font-weight: 800; font-stretch: 118%; letter-spacing: -0.035em; color: var(--pep-accent); }
+.metric .label { color: var(--pep-secondary); }
+.metric .vs { color: var(--pep-secondary); font-size: 14px; line-height: 20px; }
+.chart { position: relative; overflow: hidden; }
+.chart svg { display: block; width: 100%; height: auto; }
+.chart .mask { position: absolute; inset: 0; background: var(--pep-surface); transition: transform 900ms var(--ease); transform: translateX(101%); }
+.pre .chart .mask { transform: translateX(0); }
+
+/* ---------- 4. Audience ticker ---------- */
+.ticker { overflow: hidden; border-block: 1px solid var(--pep-border-dark); padding-block: 24px; }
+.ticker .run { display: flex; width: max-content; animation: run 40s linear infinite; }
+.ticker:hover .run { animation-play-state: paused; }
+.ticker ul { display: flex; align-items: center; gap: 48px; list-style: none; margin: 0; padding: 0 48px 0 0; }
+.ticker li { display: flex; align-items: center; gap: 48px; font-size: 40px; line-height: 44px; font-weight: 800; font-stretch: 118%; letter-spacing: -0.035em; white-space: nowrap; }
+.ticker li::after { content: ""; width: 16px; height: 16px; border: 3px solid var(--pep-surface); border-radius: 50%; }
+@media (min-width: 720px) { .ticker li { font-size: 64px; line-height: 60px; } }
+@keyframes run { to { transform: translateX(-50%); } }
+
+/* ---------- Scroll reveal (only for content below the fold at load, so the page is complete at rest) ---------- */
+[data-reveal] { transition: opacity var(--t-enter) var(--ease), transform var(--t-enter) var(--ease); }
+[data-reveal].pre { opacity: 0; transform: translateY(16px); }
+[data-reveal].pre .rule, [data-reveal].pre .chart, [data-reveal].pre .rows { opacity: 1; }
+
+/* Hero load sequence */
+.load .hero h1 .line > span { transform: translateY(105%); }
+.load .hero .lede, .load .hero .actions { opacity: 0; transform: translateY(16px); }
+.load .giant { transform: translateY(24%); opacity: 0; }
+.hero h1 .line > span, .hero .lede, .hero .actions, .giant { transition: transform var(--t-enter) var(--ease), opacity var(--t-enter) var(--ease); }
+.hero h1 .line:nth-child(2) > span { transition-delay: 80ms; }
+.hero .lede { transition-delay: 160ms; } .hero .actions { transition-delay: 220ms; }
+.giant { transition-duration: 320ms; transition-delay: 120ms; }
+
+/* Closer + footer */
+.closer { padding-block: 64px; }
+.closer .wrap { display: grid; gap: 32px; justify-items: start; }
+.closer h2 { font-size: 40px; line-height: 44px; font-weight: 800; font-stretch: 118%; letter-spacing: -0.035em; }
+@media (min-width: 720px) { .closer { padding-block: 96px; } .closer h2 { font-size: 64px; line-height: 60px; } }
+.footer { padding-bottom: 48px; }
+.footer .wrap { display: grid; gap: 16px; border-top: 1px solid var(--pep-border-dark); padding-top: 48px; color: var(--pep-disabled); font-size: 14px; line-height: 20px; }
+
+/* Mockup notes */
+.copy, .track { position: relative; }
+.copy > .note, .track > .note { position: absolute; top: 0; right: 0; }
+.track > .note { top: 48px; }
+body:not(.notes-off) .copy:has(> .note) > h2 { padding-right: 48px; }
+.note { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--pep-ink); color: var(--pep-surface); font-weight: 700; font-size: 14px; border: 2px solid var(--pep-surface); }
+.ink .note { background: var(--pep-surface); color: var(--pep-ink); border-color: var(--pep-ink); }
+.note-pin { position: absolute; z-index: 3; }
+.notes-off .note { display: none; }
+.mockbar { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 9; display: flex; gap: 8px; }
+.mockbar button { height: 40px; padding: 0 16px; border: 2px solid var(--pep-ink); background: var(--pep-surface); color: var(--pep-ink); font: 600 13px/1 var(--font); letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: background-color var(--t-state) var(--ease), color var(--t-state) var(--ease); }
+.mockbar button:hover { background: var(--pep-ink); color: var(--pep-surface); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+  .load .hero h1 .line > span, .load .hero .lede, .load .hero .actions, .load .giant, [data-reveal].pre, .pre .rows .row { transform: none !important; opacity: 1 !important; }
+  .pre .chart .mask { transform: translateX(101%) !important; }
+  .pre .rule.open::before { transform: none !important; }
+}
+</style>
+
+<div class="page load" id="page">
+<div class="ink hero-band">
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top"><span class="wordmark">pep</span><span class="lockup">Partnership Effectiveness Platform</span></a>
+      <button class="nav-toggle" type="button">Menu</button>
+      <nav class="site-nav" aria-label="Main">
+        <a href="#modules">Product</a><a href="#track">Method</a><a href="#people">Founders</a>
+        <a class="btn btn-primary btn-caps" href="#top">Request a demo</a>
+      </nav>
+    </div>
+  </header>
+  <section class="wrap hero" id="top">
+    <span class="note note-pin" style="top:24px;right:max(16px,var(--gutter))">1</span>
+    <h1><span class="line"><span>Stop guessing.</span></span><span class="line"><span>Start proving.</span></span></h1>
+    <p class="lede">pep is an AI-based sponsorship strategy and evaluation platform: consultancy-grade thinking from pitch to renewal, designed and built by Rory Natkiel and Simon Spyer.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="#top">Request a demo</a>
+      <a class="btn btn-outline" href="#track">See how it works</a>
+    </div>
+  </section>
+  <span class="wordmark giant" aria-hidden="true">pep</span>
+</div>
+
+<main>
+<section class="section" id="track" data-reveal>
+  <div class="wrap">
+    <div class="grid">
+      <span class="rule open"></span>
+      <div class="copy">
+        <span class="note">2</span>
+        <h2>One platform for the whole partnership</h2>
+        <div class="body">
+          <p>pep takes a partnership from its first objective to its renewal case. The Strategy Module sets what the deal is for and builds the plan to deliver it. The Measurement Module tracks performance against that plan and builds the evidence for what happens next.</p>
+          <p>Whether you're a brand renewing a flagship deal or a rights holder pitching a new title partner, pep gives you the plan and the data to make it pay off.</p>
+        </div>
+      </div>
+      <div class="wide track" aria-label="The partnership lifecycle pep covers">
+        <span class="note">3</span>
+        <div class="brackets" aria-hidden="true">
+          <span class="bracket strat label">Strategy Module</span>
+          <span class="bracket meas label">Measurement Module</span>
+        </div>
+        <div class="line"><span class="puck" id="puck"></span></div>
+        <ol class="stops" id="stops">
+          <li class="stop"><span class="label">Pitch</span><p>What the property can do for a brand</p><span class="mod">Strategy Module</span></li>
+          <li class="stop"><span class="label">Objectives</span><p>What the deal is for, agreed before signing</p><span class="mod">Strategy Module</span></li>
+          <li class="stop"><span class="label">Plan</span><p>Rights, budgets, channels and KPIs</p><span class="mod">Strategy Module</span></li>
+          <li class="stop"><span class="label">Deal</span><p>Data sources set for the metrics that count</p><span class="mod">Strategy Module</span></li>
+          <li class="stop"><span class="label">Season</span><p>Performance tracked live against the plan</p><span class="mod">Measurement Module</span></li>
+          <li class="stop"><span class="label">Renewal</span><p>A case both sides can check</p><span class="mod">Measurement Module</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-reveal>
+  <div class="wrap">
+    <div class="grid">
+      <span class="rule"></span>
+      <div class="copy">
+        <span class="note">4</span>
+        <h2>They're just the objectives. Set them whenever.</h2>
+        <div class="body">
+          <p>Less than half of sponsorships begin with clearly defined commercial objectives. The industry treats effectiveness as a measurement problem, but the best data stack in the world won't rescue a badly planned sponsorship.</p>
+          <p>If objectives aren't agreed before signing, activation has nothing to aim at, the campaign sits apart from the rest of the brand's communications and the media budget caps reach. That's an effectiveness problem, and it's set on day one, long before anyone opens a dashboard.</p>
+          <p class="strong">So pep starts where the value is won: the plan.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fill section" id="modules" data-reveal>
+  <div class="wrap">
+    <div class="grid">
+      <div class="copy wide">
+        <span class="note">5</span>
+        <h2>Effectiveness at every stage</h2>
+      </div>
+      <div class="wide modules">
+        <div class="module">
+          <h3>Strategy Module</h3>
+          <p class="body">Built on Box Count's strategy method, the Strategy Module covers effectiveness-led objectives, KPI frameworks and partner fit, through to activation budgets, channel plans and creative briefs rooted in evidence. Work that takes a consultancy weeks arrives in days.</p>
+          <div class="screen" aria-label="Sample Strategy Module output">
+            <div class="chrome"><span class="label">Strategy Module</span><span class="chip">Sample data</span></div>
+            <div class="surface">
+              <span class="deal">Northgate Energy × Calder Arts Festival</span>
+              <div class="rows">
+                <div class="row"><span class="label">Business</span><span>Win 40,000 new home-energy customers in the North by 2028</span></div>
+                <div class="row"><span class="label">Brand</span><span>Raise consideration among 25 to 44 year-olds in the region</span></div>
+                <div class="row"><span class="label">Role</span><span>Make the festival visibly greener, powered by Northgate</span></div>
+                <div class="row"><span class="label">KPI</span><span>Consideration among attendees vs a matched regional sample</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="module">
+          <h3>Measurement Module</h3>
+          <p class="body">Built on Data Agents' measurement frameworks, the Measurement Module brings every data source together to track performance against the objectives the strategy set, generate insights, model scenarios and build the renewal case. You can ask the data questions in plain English and see exactly how every number was produced.</p>
+          <div class="screen" aria-label="Sample Measurement Module output">
+            <div class="chrome"><span class="label">Measurement Module</span><span class="chip">Sample data</span></div>
+            <div class="surface">
+              <span class="deal">Halden Bank × Harbour City FC, 2026/27</span>
+              <div class="metric">
+                <span class="label">Consideration, fans vs non-fans</span>
+                <span class="value">+6.2 pts</span>
+                <span class="vs">Objective set at signing: +5.0 pts</span>
+              </div>
+              <div class="chart">
+                <svg viewBox="0 0 320 140" role="img" aria-label="Consideration gap rising from 0.4 to 6.2 points across the season, against a flat comparison line">
+                  <polyline fill="none" stroke="#E4E4E4" stroke-width="2" points="8,104 50,103 92,105 134,102 176,104 218,103 260,102 302,103"/>
+                  <polyline fill="none" stroke="#FF6B00" stroke-width="3" points="8,100 50,92 92,84 134,70 176,62 218,48 260,38 302,26"/>
+                  <line x1="8" y1="120" x2="312" y2="120" stroke="#0B0B0B" stroke-width="2"/>
+                  <text x="302" y="16" text-anchor="end" font-family="Archivo, sans-serif" font-size="11" font-weight="600" fill="#0B0B0B">Fans</text>
+                  <text x="302" y="96" text-anchor="end" font-family="Archivo, sans-serif" font-size="11" fill="#6E6E6E">Non-fans</text>
+                  <text x="8" y="136" font-family="Archivo, sans-serif" font-size="11" fill="#6E6E6E">Aug</text>
+                  <text x="312" y="136" text-anchor="end" font-family="Archivo, sans-serif" font-size="11" fill="#6E6E6E">May</text>
+                </svg>
+                <span class="mask"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ink ticker" aria-label="Sport, arts, music, festivals and events">
+  <span class="note note-pin" style="margin:-16px 0 0 max(16px,var(--gutter))">6</span>
+  <div class="run" aria-hidden="true">
+    <ul><li>Sport</li><li>Arts</li><li>Music</li><li>Festivals</li><li>Events</li></ul>
+    <ul><li>Sport</li><li>Arts</li><li>Music</li><li>Festivals</li><li>Events</li></ul>
+  </div>
+</div>
+
+<section class="section" id="people" data-reveal>
+  <div class="wrap">
+    <div class="grid">
+      <div class="copy">
+        <h2>Service as software</h2>
+        <div class="body">
+          <p>Software is quick to build these days. The method behind it isn't. pep runs on the frameworks Rory and Simon use with their own clients, drawing on around 50 years of sponsorship strategy and measurement experience between them.</p>
+          <p>Each module works on its own or together. Use it yourself, or bring Rory and Simon in to run it with you and advise through the season.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-reveal>
+  <div class="wrap">
+    <div class="grid">
+      <span class="rule"></span>
+      <div class="copy">
+        <h2>Why this isn't just AI</h2>
+        <div class="body">
+          <p>Anyone can ask a chatbot for a sponsorship strategy. What comes back is generic, because the model has never sat in a renewal meeting. pep is built on tested strategy and measurement methods, it's updated every time new research is published, and the people who built it are on hand whenever a decision needs an expert.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ink closer">
+  <div class="wrap">
+    <h2>Prove the partnership. Every season.</h2>
+    <a class="btn btn-primary" href="#top">Request a demo</a>
+  </div>
+</section>
+<div class="ink footer"><div class="wrap"><p>Mockup of the home page with the critique's recommendations applied. Footer unchanged.</p></div></div>
+</main>
+</div>
+
+<div class="mockbar">
+  <button type="button" id="replay">Replay motion</button>
+  <button type="button" id="notes">Hide notes</button>
+</div>
+
+<script>
+(function () {
+  var page = document.getElementById('page');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Track: the orange puck hops stop to stop, 200ms each with a short hold, once per view */
+  var stops = [].slice.call(document.querySelectorAll('#stops .stop'));
+  var puck = document.getElementById('puck');
+  var timers = [];
+  function runTrack() {
+    timers.forEach(clearTimeout); timers = [];
+    stops.forEach(function (s) { s.classList.remove('on'); });
+    if (!puck) return;
+    var line = puck.parentNode.getBoundingClientRect();
+    function to(i) {
+      var x = stops[i].getBoundingClientRect().left - line.left - 2;
+      puck.style.transform = 'translateX(' + x + 'px)';
+      stops[i].classList.add('on');
+    }
+    puck.style.transition = 'none'; to(0); puck.offsetWidth; puck.style.transition = '';
+    if (reduce) { stops.forEach(function (s, i) { to(i); }); return; }
+    stops.forEach(function (s, i) { if (i) timers.push(setTimeout(function () { to(i); }, 200 + i * 360)); });
+  }
+
+  /* Reveal: only sections below the fold at load start hidden; nothing visible at rest is withheld */
+  var targets = [].slice.call(document.querySelectorAll('[data-reveal]'));
+  function arm() {
+    targets.forEach(function (el) {
+      if (reduce) return;
+      if (el.getBoundingClientRect().top > window.innerHeight * 0.85) el.classList.add('pre');
+    });
+  }
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.remove('pre');
+      if (e.target.id === 'track') runTrack();
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.2 }) : null;
+
+  function start() {
+    page.classList.add('load'); arm();
+    requestAnimationFrame(function () { requestAnimationFrame(function () { page.classList.remove('load'); }); });
+    if (io) targets.forEach(function (t) { io.observe(t); }); else targets.forEach(function (t) { t.classList.remove('pre'); });
+    var tr = document.getElementById('track');
+    if (tr && !tr.classList.contains('pre')) setTimeout(runTrack, 300);
+  }
+  start();
+  window.addEventListener('resize', function () { stops.forEach(function (s, i) { if (s.classList.contains('on') && !stops[i + 1] || (stops[i + 1] && !stops[i + 1].classList.contains('on') && s.classList.contains('on'))) { var line = puck.parentNode.getBoundingClientRect(); puck.style.transform = 'translateX(' + (s.getBoundingClientRect().left - line.left - 2) + 'px)'; } }); });
+
+  document.getElementById('replay').addEventListener('click', function () {
+    window.scrollTo(0, 0);
+    targets.forEach(function (t) { t.classList.remove('pre'); });
+    setTimeout(start, 50);
+  });
+  var notesBtn = document.getElementById('notes');
+  notesBtn.addEventListener('click', function () {
+    var off = document.body.classList.toggle('notes-off');
+    notesBtn.textContent = off ? 'Show notes' : 'Hide notes';
+  });
+})();
+</script>
