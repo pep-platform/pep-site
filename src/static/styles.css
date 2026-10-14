@@ -101,6 +101,15 @@ h1, h2, h3 { margin: 0; text-wrap: balance; }
 }
 .wordmark-footer { font-size: 64px; }
 
+/* Header lockup: word mark + descriptor, split by a 1px rule */
+.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--pep-surface); }
+.brand .wordmark { padding-bottom: 6px; }
+.lockup {
+  white-space: nowrap;
+  padding-left: 12px; border-left: 1px solid var(--pep-border-dark);
+  font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: -0.005em;
+}
+
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center;

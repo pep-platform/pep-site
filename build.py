@@ -19,6 +19,10 @@ preview = "--preview" in sys.argv
 OUT = ROOT / ("preview" if preview else "dist")
 
 site = json.loads((ROOT / "site.json").read_text(encoding="utf-8"))
+# header lockup beside the word mark: the descriptor without its leading "The"
+site.setdefault("lockup", re.sub(r"^The\s+", "", site["descriptor"]))
+# set on two lines: first word, then the rest
+site.setdefault("lockup_html", "<br>".join(site["lockup"].split(" ", 1)))
 layout = (SRC / "layout.html").read_text(encoding="utf-8")
 
 
