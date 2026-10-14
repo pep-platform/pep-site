@@ -1,0 +1,234 @@
+<script>(function(d){d.classList.add('pep-load');setTimeout(function(){d.classList.remove('pep-load')},1500)})(document.documentElement);</script>
+<title>pep Home Structure</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Wireframe of the proposed home page structure.">
+<link rel="canonical" href="https://pep.works/">
+<meta property="og:site_name" content="pep">
+<meta property="og:title" content="pep | The Partnership Effectiveness Platform">
+<meta property="og:description" content="Wireframe of the proposed home page structure.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23FF6B00'/%3E%3Cpath d='M14 18h20c11 0 18 7 18 17s-7 17-18 17H28v12H14z' fill='%230B0B0B'/%3E%3Crect x='28' y='29' width='9' height='13' fill='%23FF6B00'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap">
+<link rel="stylesheet" href="styles.css">
+<div class="site page-index">
+<a class="skip" href="#main">Skip to content</a>
+<div class="masthead">
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="./" aria-label="pep, Partnership Effectiveness Platform, home"><span class="wordmark">pep</span><span class="lockup">Partnership Effectiveness Platform</span></a>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <a href="product.html" data-nav="product">Product</a>
+        <a href="method.html" data-nav="method">Method</a>
+        <a href="founders.html" data-nav="founders">Founders</a>
+        <a class="btn btn-primary btn-caps" href="early-access.html" data-nav="early-access">Request a demo</a>
+      </nav>
+    </div>
+  </header>
+  <section class="wrap hero">
+  <h1 class="display-xl"><span class="line"><span>Stop guessing.</span></span> <span class="line"><span>Start proving.</span></span></h1>
+  <p class="lede">pep is an AI-based sponsorship strategy and evaluation platform for rights holders, brands and agencies: consultancy-grade thinking from pitch to renewal, designed and built by Rory Natkiel and Simon Spyer.</p>
+  <div class="actions">
+    <a class="btn btn-primary" href="early-access.html">Request a demo</a>
+    <a class="btn btn-outline" href="product.html">See how it works</a>
+  </div>
+</section>
+<span class="wordmark giant" aria-hidden="true">pep</span>
+</div>
+<style>
+.closer .wrap { position: relative; }
+.wf-tag { position: absolute; top: 16px; right: max(var(--gutter), env(safe-area-inset-right, 0px)); z-index: 1; display: inline-flex; border: 1px dashed var(--pep-secondary); color: var(--pep-secondary); padding: 4px 8px; font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.tbc { color: var(--pep-disabled); }
+.quote-h { text-indent: -0.42em; }
+.stat { display: grid; gap: 4px; border-top: 2px solid var(--pep-ink); padding-top: 16px; max-width: 34em; }
+.stat .n { font-size: 96px; line-height: 88px; font-weight: 900; font-stretch: 125%; letter-spacing: -0.045em; color: var(--pep-accent); }
+.stat .s { font-size: 18px; line-height: 28px; }
+@media (max-width: 719px) { .stat .n { font-size: 64px; line-height: 60px; } }
+.aud { display: grid; gap: 32px; }
+@media (min-width: 900px) { .aud { grid-template-columns: repeat(3, 1fr); gap: 48px; } }
+.aud > div { display: grid; gap: 12px; align-content: start; border-top: 1px solid var(--pep-rule); padding-top: 24px; font-size: 18px; line-height: 28px; }
+.aud h3, .creds h3 { font-size: 28px; line-height: 32px; font-weight: 700; letter-spacing: -0.015em; }
+.creds { display: grid; gap: 32px; }
+@media (min-width: 900px) { .creds { grid-template-columns: 1fr 1fr; gap: 48px; } }
+.creds > div { display: grid; gap: 12px; align-content: start; border-top: 1px solid var(--pep-rule); padding-top: 24px; font-size: 18px; line-height: 28px; }
+.steps { display: grid; gap: 0; list-style: none; padding: 0; margin: 0; max-width: 40em; counter-reset: s; }
+.steps li { display: grid; grid-template-columns: 48px 1fr; gap: 16px; align-items: baseline; min-height: 56px; padding-block: 16px; border-top: 1px solid var(--pep-rule); font-size: 18px; line-height: 28px; counter-increment: s; }
+.steps li:last-child { border-bottom: 1px solid var(--pep-rule); }
+.steps li::before { content: counter(s); font-weight: 800; font-stretch: 118%; font-size: 28px; }
+.answer-modules { margin-top: 24px; }
+</style>
+<main id="main">
+
+<section class="section">
+  <div class="wrap">
+    <span class="wf-tag">2 · The problem</span>
+    <h2 class="quote-h">&ldquo;They're just the objectives. Set them whenever.&rdquo;</h2>
+    <div class="stat">
+      <span class="n">38%</span>
+      <span class="s">of sponsorships have clear commercial objectives. Source: All To Play For, SEF × IPA, 2026.</span>
+    </div>
+    <div class="prose">
+      <p>If objectives aren't agreed before signing, activation has nothing to aim at, the campaign sits apart from the rest of the brand's communications and the media budget caps reach. That's an effectiveness problem, and it's set on day one, long before anyone opens a dashboard.</p>
+      <p class="standfirst">So pep starts where the value is won: the plan.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="track">
+  <div class="wrap">
+    <span class="wf-tag">3 · The answer</span>
+    <h2>One platform for the whole partnership</h2>
+    <div class="prose">
+      <p>pep takes a partnership from its first objective to its renewal case. The Strategy Module sets what the deal is for and builds the plan to deliver it. The Measurement Module tracks performance against that plan and builds the evidence for what happens next.</p>
+    </div>
+    <div class="track" aria-label="The partnership lifecycle pep covers">
+      <div class="brackets" aria-hidden="true">
+        <span class="bracket strat label">Strategy Module</span>
+        <span class="bracket meas label">Measurement Module</span>
+      </div>
+      <div class="line"><span class="puck" id="puck"></span></div>
+      <ol class="stops" id="stops">
+        <li class="stop"><span class="label">Pitch</span><p>What the property can do for a brand</p><span class="mod">Strategy Module</span></li>
+        <li class="stop"><span class="label">Objectives</span><p>What the deal is for, agreed before signing</p><span class="mod">Strategy Module</span></li>
+        <li class="stop"><span class="label">Plan</span><p>Rights, budgets, channels and KPIs</p><span class="mod">Strategy Module</span></li>
+        <li class="stop"><span class="label">Deal</span><p>Data sources set for the metrics that count</p><span class="mod">Strategy Module</span></li>
+        <li class="stop"><span class="label">Season</span><p>Performance tracked live against the plan</p><span class="mod">Measurement Module</span></li>
+        <li class="stop"><span class="label">Renewal</span><p>A case both sides can check</p><span class="mod">Measurement Module</span></li>
+      </ol>
+    </div>
+    <div class="modules answer-modules">
+      <div class="module">
+        <h3>Strategy Module</h3>
+        <p>Built on Box Count's strategy method, the Strategy Module covers effectiveness-led objectives, KPI frameworks and partner fit, through to activation budgets, channel plans and creative briefs rooted in evidence. Work that takes a consultancy weeks arrives in days.</p>
+        <div class="mini" aria-label="Sample Strategy Module output">
+          <div class="mini-chrome"><span class="label">Strategy Module</span><span class="mini-chip">Sample data</span></div>
+          <div class="mini-surface">
+            <span class="deal">Acme Shaving × Harbour City FC</span>
+            <div class="rows">
+              <div class="row"><span class="label">Business</span><span>Grow share among UK men aged 35 to 54</span></div>
+              <div class="row"><span class="label">Brand</span><span>More men name Acme as the razor brand they would choose</span></div>
+              <div class="row"><span class="label">Behaviour</span><span>More word-of-mouth advocacy for Acme</span></div>
+              <div class="row"><span class="label">Sales</span><span>More men who bought Acme in the last 12 months</span></div>
+            </div>
+          </div>
+        </div>
+        <a class="more" href="product.html#strategy">See its screens on a sample deal</a>
+      </div>
+      <div class="module">
+        <h3>Measurement Module</h3>
+        <p>Built on Data Agents' measurement frameworks, the Measurement Module brings every data source together to track performance against the objectives the strategy set, generate insights, model scenarios and build the renewal case. You can ask the data questions in plain English and see exactly how every number was produced.</p>
+        <div class="mini" aria-label="Sample Measurement Module output">
+          <div class="mini-chrome"><span class="label">Measurement Module</span><span class="mini-chip">Sample data</span></div>
+          <div class="mini-surface">
+            <span class="deal">Acme Shaving × Harbour City FC</span>
+            <div class="metric">
+              <span class="label">Tracked brand KPIs, exposed vs control</span>
+              <span class="value">+4.2pts</span>
+              <span class="vs">Baseline to six-month wave</span>
+            </div>
+            <div class="chart">
+              <svg viewBox="0 0 320 140" role="img" aria-label="Brand uplift rising from 0.3 to 4.2 points over six months, against a flat control line">
+                <polyline fill="none" stroke="#E4E4E4" stroke-width="2" points="8,104 66,103 124,105 182,102 240,104 302,103"/>
+                <polyline fill="none" stroke="#FF6B00" stroke-width="3" points="8,100 66,88 124,74 182,58 240,44 302,30"/>
+                <line x1="8" y1="120" x2="312" y2="120" stroke="#0B0B0B" stroke-width="2"/>
+                <text x="302" y="20" text-anchor="end" font-family="Archivo, sans-serif" font-size="11" font-weight="600" fill="#0B0B0B">Exposed</text>
+                <text x="302" y="96" text-anchor="end" font-family="Archivo, sans-serif" font-size="11" fill="#6E6E6E">Control</text>
+                <text x="8" y="136" font-family="Archivo, sans-serif" font-size="11" fill="#6E6E6E">Baseline</text>
+                <text x="312" y="136" text-anchor="end" font-family="Archivo, sans-serif" font-size="11" fill="#6E6E6E">Month 6</text>
+              </svg>
+              <span class="mask"></span>
+            </div>
+          </div>
+        </div>
+        <a class="more" href="product.html#measurement">See its screens on a sample deal</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section fill">
+  <div class="wrap">
+    <span class="wf-tag">4 · Who it's for</span>
+    <h2 class="tbc">[Heading to come]</h2>
+    <div class="aud">
+      <div><h3>Rights holders</h3><p>Work out what a property can do for a brand, then say it in language a CMO recognises.</p></div>
+      <div><h3>Brands</h3><p>Define what the deal should do before the ink dries.</p></div>
+      <div><h3>Agencies</h3><p class="tbc">[Agency line to come]</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="ink ticker" aria-label="Sport, arts, music, festivals and events">
+  <div class="run" aria-hidden="true">
+    <ul><li>Sport</li><li>Arts</li><li>Music</li><li>Festivals</li><li>Events</li></ul>
+    <ul><li>Sport</li><li>Arts</li><li>Music</li><li>Festivals</li><li>Events</li></ul>
+  </div>
+</div>
+
+<section class="section">
+  <div class="wrap">
+    <span class="wf-tag">5 · Why trust it</span>
+    <h2>It's only £20m over 5 years. Who needs experts?</h2>
+    <div class="prose">
+      <p>Software is quick to build these days. The method behind it isn't. pep runs on the frameworks Rory and Simon use with their own clients, drawing on around 50 years of sponsorship strategy and measurement experience between them.</p>
+      <p>Anyone can ask a chatbot for a sponsorship strategy. What comes back is generic, because the model has never sat in a renewal meeting. pep is built on tested strategy and measurement methods, it's updated every time new research is published, and the people who built it are on hand whenever a decision needs an expert.</p>
+    </div>
+    <div class="creds">
+      <div><h3>Rory Natkiel · Box Count</h3><p>Co-founder and chair of the Sponsorship Effectiveness Forum. Author of The Sponsorship Effect, Sponsorship Measurement: A Best Practice Guide and All To Play For, the first report on sports sponsorship the IPA has published.</p></div>
+      <div><h3>Simon Spyer · Data Agents</h3><p>Founder of Data Agents. A career in strategic analysis, competitive intelligence, CRM and performance marketing, building measurement frameworks for brands that needed to defend their spend to a board.</p></div>
+    </div>
+    <a class="more" href="founders.html">Meet the founders</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <span class="wf-tag">6 · How it works for you</span>
+    <h2 class="tbc">[Heading to come]</h2>
+    <div class="prose">
+      <p>Each module works on its own or together. Use it yourself, or bring Rory and Simon in to run it with you and advise through the season.</p>
+      <p>The proof of concept is done. We're now working with a small number of rights holders and brands on their live partnerships, and using what we learn to shape the roadmap.</p>
+    </div>
+    <ol class="steps">
+      <li><span>Request a demo and tell us what you're working on.</span></li>
+      <li><span>We'll be in touch to schedule a call.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="ink closer">
+  <div class="wrap">
+    <span class="wf-tag" style="border-color:var(--pep-disabled);color:var(--pep-disabled)">7 · Close</span>
+    <h2 class="display-l">Prove the partnership. Every season.</h2>
+    <a class="btn btn-primary" href="early-access.html">Request a demo</a>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <a class="wordmark wordmark-footer" href="./" aria-label="pep home">pep</a>
+      <p>The Partnership Effectiveness Platform. Effectiveness embedded from pitch to renewal.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="product.html">Product</a>
+      <a href="method.html">Method</a>
+      <a href="founders.html">Founders</a>
+      <a href="early-access.html">Request a demo</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="https://thesponsorshipeffect.substack.com" rel="noopener">The Sponsorship Effect newsletter</a>
+    </nav>
+    <div class="footer-small">
+      <p>Contact <a href="mailto:hello@pep.works">hello@pep.works</a></p>
+      <p>pep is a joint venture of Box Count and Foundry Data Ltd t/a Data Agents. &copy; 2026 pep.</p>
+    </div>
+  </div>
+</footer>
+</div>
+<script src="site.js"></script>
