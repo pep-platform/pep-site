@@ -563,3 +563,35 @@ main > .section:first-child > .wrap { overflow: hidden; }
 }
 /* Orange display words: large headings only (orange text passes contrast at display sizes) */
 .accent { color: var(--pep-accent); }
+
+/* ---------- Product frames on phones: no sideways scrolling ---------- */
+@media (max-width: 719px) {
+  .pf .screen { padding: 16px 12px; gap: 16px; min-height: 0; }
+  .pf .callout { font-size: 16px; line-height: 24px; padding: 12px 16px; }
+  .pf .chrome-top { padding: 12px; gap: 8px 12px; }
+  .pf .chrome-top .deal { gap: 12px; }
+  .pf .chrome-top .wm { font-size: 24px; }
+  /* tabs share the width; the module name is already on the page above */
+  .pf .tabs { overflow: visible; }
+  .pf .tabgroup { flex: 1; border-right: 0; }
+  .pf .tabgroup .group { display: none; }
+  .pf .tab { flex: 1; padding: 0 4px; letter-spacing: .08em; }
+  /* objectives framework: stacks instead of a 760px-wide grid */
+  .pf .scroll { overflow: visible; }
+  .pf .ofw { min-width: 0; }
+  .pf .ofw .band { padding: 8px 12px; }
+  .pf .ofw .cells { grid-template-columns: 1fr 1fr; }
+  .pf .ofw .span2 { grid-column: span 1; }
+  .pf .ofw .cell { min-height: 0; padding: 8px 12px; font-size: 14px; line-height: 20px; }
+  .pf .ofw .cell small, .pf .ofw .cell span { font-size: 13px; line-height: 18px; }
+  .pf .ofw .cell.biz, .pf .ofw .cell.sup { grid-column: 1 / -1; order: -1; padding: 12px; font-size: 16px; line-height: 24px; }
+  .pf .ofw .cell.biz span, .pf .ofw .cell.sup span { font-size: 14px; line-height: 20px; }
+  .pf .legend { gap: 8px 16px; font-size: 14px; line-height: 20px; }
+  .pf .legend .count { margin-left: 0; }
+  /* cards and panels */
+  .pf .bcard, .pf .ocard, .pf .icard, .pf .panel { padding: 16px; }
+  .pf .bcard .fig { font-size: 28px; line-height: 32px; }
+  .pf .kpi { padding: 12px; }
+  .pf .kpi .v { font-size: 24px; line-height: 28px; }
+  .pf .move { grid-template-columns: 1fr; gap: 4px; }
+}
