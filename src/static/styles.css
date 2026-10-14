@@ -561,3 +561,5 @@ main > .section:first-child > .wrap { overflow: hidden; }
   main .section > .wrap > .more { margin-left: calc(100% / 3 + 8px); max-width: 40em; }
   main .section > .wrap > .more { justify-self: start; }
 }
+/* Orange display words: large headings only (orange text passes contrast at display sizes) */
+.accent { color: var(--pep-accent); }
