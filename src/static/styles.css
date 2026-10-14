@@ -472,16 +472,16 @@ main > .section:first-child > .wrap { overflow: hidden; }
 /* Pitch-to-renewal track */
 .label { font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
 .track { position: relative; padding-top: 24px; min-width: 0; }
-.track .brackets { display: grid; grid-template-columns: repeat(6, 1fr); margin-bottom: 16px; }
+.track .brackets { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 16px; }
 .track .bracket { border-top: 2px solid var(--pep-ink); padding-top: 8px; }
 .track .bracket { position: relative; padding-top: 12px; }
 .track .bracket::before, .track .bracket::after { content: ""; position: absolute; top: -2px; width: 2px; height: 10px; background: var(--pep-ink); }
 .track .bracket::before { left: 0; }
 .track .bracket::after { right: 0; }
 .track .bracket.strat { grid-column: 1 / span 4; margin-right: 12px; }
-.track .bracket.meas { grid-column: 5 / span 2; }
+.track .bracket.meas { grid-column: 5 / span 3; }
 .track .line { position: relative; height: 2px; background: var(--pep-rule); margin-top: 24px; }
-.track .stops { display: grid; grid-template-columns: repeat(6, 1fr); list-style: none; padding: 0; margin: 0; }
+.track .stops { display: grid; grid-template-columns: repeat(7, 1fr); list-style: none; padding: 0; margin: 0; }
 .track .stop { position: relative; padding: 24px 12px 0 0; color: var(--pep-secondary); transition: color var(--t-state) var(--ease); }
 .track .stop::before { content: ""; position: absolute; top: -7px; left: 0; width: 12px; height: 12px; background: var(--pep-surface); border: 2px solid var(--pep-ink); border-radius: 50%; }
 .track .stop.on { color: var(--pep-ink); }
