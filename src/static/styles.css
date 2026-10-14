@@ -541,3 +541,24 @@ main > .section:first-child > .wrap { overflow: hidden; }
   .modules:has(.mini) > .module > .more { margin-top: 16px; }
   .modules:has(.mini) .mini-surface { flex: 1; align-content: start; }
 }
+
+/* ================= Home structure (October 2026) ================= */
+.tbc { color: var(--pep-disabled); }
+.aud { display: grid; gap: 32px; }
+@media (min-width: 900px) { .aud { grid-template-columns: repeat(3, 1fr); gap: 48px; } }
+.aud > div { display: grid; gap: 12px; align-content: start; border-top: 1px solid var(--pep-rule); padding-top: 24px; font-size: 18px; line-height: 28px; }
+.aud h3, .creds h3 { font-size: 28px; line-height: 32px; font-weight: 700; letter-spacing: -0.015em; }
+.creds { display: grid; gap: 32px; }
+@media (min-width: 900px) { .creds { grid-template-columns: 1fr 1fr; gap: 48px; } }
+.creds > div { display: grid; gap: 12px; align-content: start; border-top: 1px solid var(--pep-rule); padding-top: 24px; font-size: 18px; line-height: 28px; }
+.steps { display: grid; gap: 0; list-style: none; padding: 0; margin: 0; max-width: 40em; counter-reset: s; }
+.steps li { display: grid; grid-template-columns: 48px 1fr; gap: 16px; align-items: baseline; min-height: 56px; padding-block: 16px; border-top: 1px solid var(--pep-rule); font-size: 18px; line-height: 28px; counter-increment: s; }
+.steps li:last-child { border-bottom: 1px solid var(--pep-rule); }
+.steps li::before { content: counter(s); font-weight: 800; font-stretch: 118%; font-size: 28px; }
+/* Offset copy: headings run full width; running copy starts a third of the way in */
+@media (min-width: 960px) {
+  main .section > .wrap > .prose,
+  main .section > .wrap > .steps,
+  main .section > .wrap > .more { margin-left: calc(100% / 3 + 8px); max-width: 40em; }
+  main .section > .wrap > .more { justify-self: start; }
+}
