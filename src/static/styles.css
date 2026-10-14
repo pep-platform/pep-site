@@ -101,14 +101,23 @@ h1, h2, h3 { margin: 0; text-wrap: balance; }
 }
 .wordmark-footer { font-size: 64px; }
 
-/* Header lockup: word mark + descriptor, split by a 1px rule */
-.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--pep-surface); }
-.brand .wordmark { padding-bottom: 6px; }
+/* Header lockup (as on the live site): word mark, a full-height rule, then the descriptor
+   one word per line in grey uppercase labels */
+.brand { display: flex; align-items: stretch; align-self: stretch; text-decoration: none; }
+.brand .wordmark { display: flex; align-items: center; padding: 0 24px 6px 0; }
 .lockup {
-  white-space: nowrap;
-  padding-left: 12px; border-left: 1px solid var(--pep-border-dark);
-  font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: -0.005em;
+  display: flex; align-items: center;
+  width: min-content;
+  padding-left: 24px; border-left: 1px solid var(--pep-border-dark);
+  font-size: 13px; line-height: 16px; font-weight: 400;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--pep-disabled);
 }
+@media (max-width: 719px) {
+  .brand .wordmark { padding-right: 16px; }
+  .lockup { padding-left: 16px; }
+}
+.btn-caps { font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -139,18 +148,17 @@ h1, h2, h3 { margin: 0; text-wrap: balance; }
 .site-header { border-bottom: 1px solid var(--pep-border-dark); }
 .header-inner {
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
-  min-height: 72px; padding-block: 12px;
+  min-height: 72px; padding-block: 0;
 }
 .site-nav { display: flex; align-items: center; gap: 32px; }
 .site-nav a:not(.btn) {
-  font-size: 16px; font-weight: 600; text-decoration: none;
+  font-size: 16px; font-weight: 400; text-decoration: none;
   padding-block: 4px;
   border-bottom: 2px solid transparent;
   transition: color var(--t-state) var(--ease), border-color var(--t-state) var(--ease);
 }
 .site-nav a:not(.btn):hover { color: var(--pep-accent-hover); }
 .site-nav a[aria-current="page"]:not(.btn) { border-bottom-color: var(--pep-surface); }
-.site-nav a.btn[aria-current="page"] { background: var(--pep-surface); color: var(--pep-ink); border-color: var(--pep-surface); }
 .nav-toggle {
   display: none;
   height: 40px; padding: 0 16px;
