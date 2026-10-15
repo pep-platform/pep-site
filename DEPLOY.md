@@ -1,23 +1,25 @@
 # Deploying the pep site
 
-`python3 build.py` builds the finished site into `dist/`: plain HTML, CSS, JS and two images. It runs on any static host with no server code, and opens locally by double-clicking `dist/index.html`.
+The site deploys automatically. Every push to `main` runs `.github/workflows/pages.yml`, which builds the site with `python3 build.py` and publishes `dist/` to GitHub Pages. The repo is public (GitHub Pages is free for public repos).
 
-## Before it goes live
+- GitHub Pages address: https://rory-lab.github.io/pep-site/ (redirects to pep.works once the domain is live)
+- Custom domain: pep.works, set in the repo's Settings, Pages, and in `src/static/CNAME`
 
-- **Request a demo form:** not connected. Add a Formspree (or similar) endpoint to `data-endpoint=""` in `src/pages/early-access.html`, then rebuild.
-- **Privacy and Terms:** holding text only. Add the real copy.
-- **Name:** still "pep". The rename is one line in `site.json`, though the closing line "Put some pep in your partnership." will need rewriting.
-- **Domain:** canonical URLs point at `https://pep.works` (from `site.json`).
+## DNS (Simon, at GoDaddy)
 
-## Option 1: GitHub Pages
+Replace the records for the website only. Leave every MX, TXT (SPF, DKIM, DMARC) and other record exactly as it is, so email is unaffected.
 
-1. Push this repo to GitHub (for example rory-lab/pep-site).
-2. Run `python3 build.py` and commit the `dist/` folder (remove `dist/` from `.gitignore` first), or add a build workflow.
-3. In the repo: Settings, Pages, deploy from the branch, folder `/dist` (or move `dist/` to `/docs`, which Pages supports directly).
-4. Add `pep.works` as the custom domain and point the domain's DNS at GitHub Pages as GitHub instructs.
+| Type | Name | Value |
+|---|---|---|
+| A | @ | 185.199.108.153 |
+| A | @ | 185.199.109.153 |
+| A | @ | 185.199.110.153 |
+| A | @ | 185.199.111.153 |
+| CNAME | www | rory-lab.github.io |
 
-## Option 2: Cloudflare Pages or Netlify (what boxcount.co uses)
+Remove any other A or CNAME records on `@` and `www` that point at the old CMS. Once DNS resolves (usually within an hour), tick "Enforce HTTPS" in the repo's Settings, Pages.
 
-Connect the GitHub repo, set the build command to `python3 build.py` and the output folder to `dist`. Every push to `main` then rebuilds and deploys. Add `pep.works` as the custom domain.
+## Still to do
 
-Moving the domain off Simon's current CMS needs coordinating with him.
+- Request a demo form: add a Formspree (or similar) endpoint to `data-endpoint=""` in `src/pages/early-access.html`.
+- Privacy and Terms: replace the holding text.

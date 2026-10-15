@@ -1,6 +1,6 @@
 # pep website rebuild: working guide
 
-A static rebuild of the pep website (live today at pep.works, built by Simon on a CMS). Rory asks for changes in chat; Claude edits this repo and shows the result as a private HTML preview. **Previews only: nothing in this repo deploys anywhere.** No Cloudflare, DNS or hosting work, and no changes to the live pep.works site or Simon's CMS, until Rory says so.
+The pep website, pep.works. Rory asks for changes in chat; Claude edits this repo, checks the result and pushes to `main`. **Every push to `main` deploys to GitHub Pages** (`.github/workflows/pages.yml` builds with `python3 build.py` and publishes `dist/`), with pep.works as the custom domain (`src/static/CNAME`). The domain's DNS is at GoDaddy and is managed by Simon; don't change DNS or Simon's old CMS. Show Rory a private preview first for anything bigger than a copy tweak.
 
 ## Workflow
 
@@ -9,7 +9,7 @@ A static rebuild of the pep website (live today at pep.works, built by Simon on 
 3. `python3 build.py` builds into `dist/` (full pages, for checking in a browser). `python3 build.py --preview` builds into `preview/` (same, but `index.html` without its `<html>/<head>` wrapper, because the artifact wraps the page itself).
 4. Check every changed page in a browser (Playwright) at 1280px and 390px. Look, don't assume. Serve `dist/` over http (`python3 -m http.server`), since home links are `./`.
 5. Publish `preview/` as one private multi-file artifact: `index.html` as the page, the other pages, CSS and JS as `files`, so links between pages work. Republish to the same artifact each time so Rory keeps one link: https://claude.ai/artifact/YYemQgua42rXHZ1XZYPxtS (pass it as `url` from a new conversation).
-6. Commit as Rory and push, which saves the work only:
+6. Commit as Rory and push. This deploys the live site within a couple of minutes:
    `git -c user.name="Rory Natkiel" -c user.email="rorynatkiel@gmail.com" commit -m "..."` then `git push origin HEAD:main`.
 7. Tell Rory in a line or two what changed.
 
