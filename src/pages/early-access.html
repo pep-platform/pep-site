@@ -12,8 +12,9 @@ slug: early-access
 
 <section class="section">
   <div class="wrap">
-    <form class="form" id="access-form" data-endpoint="" data-email="{{email}}" novalidate>
+    <form class="form" id="access-form" action="https://formspree.io/f/xkjokgpg" method="POST" data-endpoint="https://formspree.io/f/xkjokgpg" data-email="{{email}}" novalidate>
       <input type="hidden" name="_subject" value="{{brand}} demo request">
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
       <div class="field-row">
         <div class="field"><label for="first-name">First name</label><input id="first-name" name="first_name" autocomplete="given-name" required></div>
         <div class="field"><label for="last-name">Last name</label><input id="last-name" name="last_name" autocomplete="family-name" required></div>

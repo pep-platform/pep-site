@@ -21,5 +21,5 @@ Remove any other A or CNAME records on `@` and `www` that point at the old CMS. 
 
 ## Still to do
 
-- Request a demo form: add a Formspree (or similar) endpoint to `data-endpoint=""` in `src/pages/early-access.html`.
+- Request a demo form: connected to Formspree (form `xkjokgpg`, managed in Rory's Formspree account).
 - Privacy and Terms: replace the holding text.

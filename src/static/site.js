@@ -100,7 +100,7 @@
     });
   }
 
-  /* Early-access form. data-endpoint stays empty until an endpoint (e.g. Formspree) is chosen. */
+  /* Early-access form, posted to Formspree as JSON so the page stays put. */
   var form = document.getElementById('access-form');
   if (!form) return;
   var status = document.getElementById('form-status');
@@ -119,12 +119,15 @@
     status.textContent = 'Sending…';
     fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
       .then(function (r) {
-        if (!r.ok) throw new Error(r.status);
+        if (!r.ok) return r.json().catch(function () { return {}; }).then(function (d) {
+          throw new Error(d.errors && d.errors.length ? d.errors.map(function (x) { return x.message; }).join(' ') : r.status);
+        });
         form.reset();
         status.textContent = 'Thanks. We will be in touch to arrange a demo.';
       })
-      .catch(function () {
-        status.textContent = 'Something went wrong. Email ' + email + ' instead.';
+      .catch(function (err) {
+        var msg = err && isNaN(err.message) ? err.message + ' ' : '';
+        status.textContent = msg + 'If it keeps failing, email ' + email + '.';
       })
       .then(function () { button.disabled = false; });
   });
