@@ -610,3 +610,12 @@ main > .section:first-child > .wrap { overflow: hidden; }
 /* Audience use cases: two columns of bulleted lists */
 @media (min-width: 900px) { .aud.aud-2 { grid-template-columns: 1fr 1fr; } }
 .aud .list { font-size: 18px; line-height: 28px; }
+
+/* Founders: portrait in the left third, biography in the offset copy column */
+.person .portrait { display: block; width: 100%; max-width: 280px; height: auto; aspect-ratio: 1; object-fit: cover; }
+@media (min-width: 960px) {
+  .person > .wrap { grid-template-columns: calc(100% / 3 + 8px) 1fr; column-gap: 0; }
+  .person > .wrap > h2 { grid-column: 1 / -1; }
+  .person > .wrap > .portrait { grid-column: 1; max-width: calc(100% - 48px); align-self: start; }
+  main .person > .wrap > .prose { grid-column: 2; margin-left: 0; }
+}
