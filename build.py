@@ -70,6 +70,9 @@ for page in sorted((SRC / "pages").glob("*.html")):
     left = re.findall(r"\{\{\w+\}\}", html)
     if left:
         sys.exit(f"{page.name}: unfilled placeholders {sorted(set(left))}")
+    if not preview:
+        # real hosting and local files: the home link points at index.html (the artifact preview needs ./)
+        html = html.replace('href="./"', 'href="index.html"')
     if preview and page.name == "index.html":
         html = strip_wrapper(html)
     (OUT / page.name).write_text(html, encoding="utf-8")
