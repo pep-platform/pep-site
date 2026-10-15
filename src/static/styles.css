@@ -606,3 +606,7 @@ main > .section:first-child > .wrap { overflow: hidden; }
   .pf .kpi .v { font-size: 24px; line-height: 28px; }
   .pf .move { grid-template-columns: 1fr; gap: 4px; }
 }
+
+/* Audience use cases: two columns of bulleted lists */
+@media (min-width: 900px) { .aud.aud-2 { grid-template-columns: 1fr 1fr; } }
+.aud .list { font-size: 18px; line-height: 28px; }
