@@ -96,7 +96,7 @@
     toggle.addEventListener('click', function () {
       var open = nav.classList.toggle('open');
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      toggle.textContent = open ? 'Close' : 'Menu';
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     });
   }
 

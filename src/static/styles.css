@@ -170,13 +170,23 @@ h1, h2, h3 { margin: 0; text-wrap: balance; }
 .site-nav a[aria-current="page"]:not(.btn) { border-bottom-color: var(--pep-surface); }
 .nav-toggle {
   display: none;
-  height: 40px; padding: 0 16px;
+  width: 48px; height: 48px; margin-right: -12px; padding: 0;
   background: transparent; color: var(--pep-surface);
-  border: 2px solid var(--pep-surface);
-  font: 700 16px/1 var(--font); cursor: pointer;
+  border: 0; cursor: pointer;
+  align-items: center; justify-content: center;
 }
+/* Burger: three bars that turn into a cross when open */
+.nav-toggle .bars { position: relative; display: block; width: 24px; height: 16px; }
+.nav-toggle .bars span { position: absolute; left: 0; width: 24px; height: 2px; background: currentColor; transition: transform 200ms var(--ease), opacity 120ms var(--ease); }
+.nav-toggle .bars span:nth-child(1) { top: 0; }
+.nav-toggle .bars span:nth-child(2) { top: 7px; }
+.nav-toggle .bars span:nth-child(3) { top: 14px; }
+.nav-toggle[aria-expanded="true"] .bars span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .bars span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .bars span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-toggle:hover { color: var(--pep-accent-hover); }
 @media (max-width: 719px) {
-  .nav-toggle { display: inline-flex; align-items: center; }
+  .nav-toggle { display: inline-flex; }
   .site-nav {
     display: none;
     position: absolute; left: 0; right: 0; top: 72px; z-index: 5;
