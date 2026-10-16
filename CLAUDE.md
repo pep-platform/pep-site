@@ -23,7 +23,8 @@ Mirrors boxcount.co (rory-lab/boxcount-site) and reuses its build script.
 - `src/layout.html` holds the shared head, header, nav and footer.
 - `src/pages/*.html` has one file per page, with front matter (`title`, `description`, `path`, `slug`). Everything above `<!--/masthead-->` goes in the ink masthead with the header.
 - `src/static/` is copied as-is (styles.css, site.js).
-- Internal links keep `.html` so they work inside the artifact; the home link is `./`. Clean URLs can come later, with hosting.
+- Internal links keep `.html` so they work inside the artifact; the home link is `./`. Front-matter `path` (canonical, og:url, sitemap) uses the same `.html` URLs.
+- SEO: `build.py` writes `sitemap.xml` and `robots.txt` and adds JSON-LD (Organisation and WebSite everywhere, SoftwareApplication on product, Person on founders). Pages with `robots: noindex` in front matter (privacy, terms, 404) get a noindex tag and stay out of the sitemap. The share image is `src/static/assets/og.png` (1200×630) and the logo is `assets/logo.png`. Keep titles under 60 characters and descriptions under 160. A Google Search Console verification file, when added, goes in `src/static/` as-is.
 - Archivo (variable, with the wdth axis) loads from Google Fonts. SVGs are inline. The site is self-contained so previews render.
 - Product page screens (`.pf` frames, styles in styles.css, tabs and scenario logic in site.js) are rebuilt from the beta app on a fictional sample deal: Acme Shaving × Harbour City FC. Never name real properties (no NFL). The scenario channel-to-objective mapping is an approximation, not the product's logic.
 - The early-access form posts to Formspree (`https://formspree.io/f/xkjokgpg`, in `action` and `data-endpoint`); site.js sends it by fetch with `Accept: application/json` and shows the result inline. `_gotcha` is the spam honeypot.
