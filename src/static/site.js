@@ -122,6 +122,10 @@
         if (!r.ok) return r.json().catch(function () { return {}; }).then(function (d) {
           throw new Error(d.errors && d.errors.length ? d.errors.map(function (x) { return x.message; }).join(' ') : r.status);
         });
+        /* GA4 key event: fires only once Formspree confirms the submission. No personal data sent. */
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'generate_lead', { form_id: 'request_demo', role: form.elements.role ? form.elements.role.value : '' });
+        }
         form.reset();
         status.textContent = 'Thanks. We will be in touch to arrange a demo.';
       })
