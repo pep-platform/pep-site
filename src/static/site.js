@@ -128,6 +128,8 @@
         }
         form.reset();
         status.textContent = 'Thanks. We will be in touch to arrange a demo.';
+        /* LinkedIn conversion fires on the thank-you page load (Campaign Manager URL rule). */
+        window.location.href = 'early-access-thanks.html';
       })
       .catch(function (err) {
         var msg = err && isNaN(err.message) ? err.message + ' ' : '';
